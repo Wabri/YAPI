@@ -1,4 +1,4 @@
-# YAPaI
+# YAPI
 
 Debian base only
 
