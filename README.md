@@ -1,4 +1,4 @@
-# oh-my-installer
+# YAPaI
 
 Debian base only
 
