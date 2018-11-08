@@ -1,7 +1,7 @@
 # YAPI - Yet Another Package Installer
 This Package Installer only works on Debian currently.
 
-**_Work in Progress_**
+**_Work in Progress_**..
 Current Packages Supported:
  -  Atom
  -  Discord
@@ -19,3 +19,5 @@ Current Packages Supported:
  -  Skype
  -  Steam
  -  VirtualBox
+---
+GNU License
