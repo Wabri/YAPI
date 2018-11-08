@@ -1,111 +1,38 @@
-#
+# YAPI - Yet Another Packages Installer
 
-where_is_scripts = "/script/"
+import glob
+import os
+import subprocess
 
-packages = {
-    0:
-        [
-            "Name of Package",
-            "Description of package",
-            where_is_scripts + "hello_test.sh"
-        ],
-    1:
-        [
-            "Atom",
-            "Atom Text editor",
-            where_is_scripts + "atom_installer.sh"
-        ],
-    2:
-        [
-            "Discord",
-            "Discord chat application",
-            where_is_scripts + "discord_installer.sh"
-        ],
-    3:
-        [
-            "Dropbox",
-            "Dropbox cloud storage",
-            where_is_scripts + "dropbox_installer.sh"
-        ],
-    4:
-        [
-            "Eclipse Installer",
-            "Eclipse IDE installer",
-            where_is_scripts + "eclipseInstaller_installer.sh"
-        ],
-    5:
-        [
-            "GitKraken",
-            "GitKraken is a extended git GUI",
-            where_is_scripts + "gitkraken_installer.sh"
-        ],
-    6:
-        [
-            "Google Chrome",
-            "",
-            ""
-        ],
-    7:
-        [
-            "Java jdk 11",
-            "",
-            ""
-        ],
-    8:
-        [
-            "Light",
-            "",
-            ""
-        ],
-    9:
-        [
-            "NodeJs",
-            "",
-            ""
-        ],
-    10:
-        [
-            "NVidia Driver",
-            "",
-            ""
-        ],
-    11:
-        [
-            "Oh-My-Zsh",
-            "",
-            ""
-        ],
-    12:
-        [
-            "Playerctl",
-            "",
-            ""
-        ],
-    13:
-        [
-            "Rambox",
-            "",
-            ""
-        ],
-    14:
-        [
-            "Skype",
-            "",
-            ""
-        ],
-    15:
-        [
-            "Steam",
-            "",
-            ""
-        ],
-    16:
-        [
-            "VirtualBox",
-            "",
-            ""
+where_is_scripts = "scripts/"
+
+packages = {}
+
+os.chdir(where_is_scripts)
+counter_packages = 1
+for file in glob.glob("*.sh"):
+    package_name = file.split(".")[0].capitalize()
+    package_description = ""
+    with open(file, "r") as open_file:
+        package_description = str(open_file.readline())
+        if package_description[0] == "#":
+            package_description = package_description.strip("\n").strip("# ")
+        else:
+            package_description = package_name
+    if file == "test.sh":
+        packages[0] = [
+            package_name,
+            package_description,
+            where_is_scripts + file
         ]
-}
+    else:
+        packages[counter_packages] = [
+            package_name,
+            package_description,
+            where_is_scripts + file
+        ]
+        counter_packages += 1
+os.chdir("..")
 
 yes_answer = ("Y", "Yes", "y", "yes")
 no_answer = ("N", "No", "n", "no")
@@ -130,7 +57,26 @@ while continue_to_ask:
             "Do you want to install {}? ".format(
                 packages[package_to_install][0]))
     if choose in yes_answer:
-        print("Let's start the installation")
+        print("Let's start the installation, these take a moment...")
+        with open(packages[package_to_install][2], "r") as file_script:
+            bashCommand = ""
+            for line in file_script.readlines():
+                if line[0] != "#":
+                    bashCommand += line
+            bashCommand = bashCommand.replace("\n", " ; ")
+            # try:
+            #     retcode = call(bashCommand, shell=True)
+            #     if retcode < 0:
+            #         print("Child was terminated by signal", -retcode,
+            #               file=sys.stderr)
+            #     else:
+            #         print("Child returned", retcode, file=sys.stderr)
+            # except OSError as e:
+            #     print("Execution failed:", e, file=sys.stderr)
+            output = subprocess.check_output(
+                bashCommand,
+                stderr=subprocess.STDOUT,
+                shell=True)
     else:
         print("Ok, no problem...")
     choose = ""
