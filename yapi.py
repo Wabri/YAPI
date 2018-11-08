@@ -64,15 +64,6 @@ while continue_to_ask:
                 if line[0] != "#":
                     bashCommand += line
             bashCommand = bashCommand.replace("\n", " ; ")
-            # try:
-            #     retcode = call(bashCommand, shell=True)
-            #     if retcode < 0:
-            #         print("Child was terminated by signal", -retcode,
-            #               file=sys.stderr)
-            #     else:
-            #         print("Child returned", retcode, file=sys.stderr)
-            # except OSError as e:
-            #     print("Execution failed:", e, file=sys.stderr)
             output = subprocess.check_output(
                 bashCommand,
                 stderr=subprocess.STDOUT,
