@@ -1,23 +1,24 @@
-# YAPI - Yet Another Package Installer
-This Package Installer only works on Debian currently.
+# YAPI
 
-**_Work in Progress_**..
-Current Packages Supported:
- -  Atom
- -  Discord
- -  Dropbox
- -  Eclipse
- -  Gitkraken
- -  Google Chrome
- -  Java jdk 11 (Includes home path)
- -  Light
- -  Node JS
- -  Nvidia Drivers
- -  Oh My Zsh
- -  Playerctl
- -  Rambox
- -  Skype
- -  Steam
- -  VirtualBox
----
-GNU License
+Debian base only
+
+**_Under construction_**
+
+Script:
+
+-   atom
+-   discord
+-   dropbox
+-   eclipse installer
+-   gitkraken
+-   google chrome
+-   java jdk 11 with java home path
+-   light
+-   node js  
+-   nvidia driver
+-   oh-my-zsh
+-   playerctl
+-   rambox
+-   skype
+-   steam
+-   virtualbox
