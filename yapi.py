@@ -39,26 +39,8 @@ yes_answer = ("Y", "Yes", "y", "yes")
 no_answer = ("N", "No", "n", "no")
 right_answer = yes_answer + no_answer
 
-
-
-if len(sys.argv) == 2:
-    print("You must provide another argument for the package or no arguments for the question installer")
-    print("python yapi.py install package for example")
-if len(sys.argv) == 3:
-    if sys.argv[1] == "install":
-        package_to_install = sys.argv[2]
-        print("Let's start the installation, these take a moment...")
-        with open(packages[package_to_install][2], "r") as file_script:
-            bashCommand = ""
-            for line in file_script.readlines():
-                if line[0] != "#":
-                    bashCommand += line
-            bashCommand = bashCommand.replace("\n", " ; ")
-            output = subprocess.check_output(bashCommand, stderr=subprocess.STDOUT, shell=True)
-            
 if len(sys.argv) == 1:
     continue_to_ask = True
-
     while continue_to_ask:
         print("-" * 79)
         print("You can choose to install this packages:")
@@ -83,10 +65,7 @@ if len(sys.argv) == 1:
                     if line[0] != "#":
                         bashCommand += line
                 bashCommand = bashCommand.replace("\n", " ; ")
-                output = subprocess.check_output(
-                    bashCommand,
-                    stderr=subprocess.STDOUT,
-                    shell=True)
+                subprocess.call(bashCommand, stderr=subprocess.STDOUT, shell=True)
         else:
             print("Ok, no problem...")
         choose = ""
@@ -98,3 +77,20 @@ if len(sys.argv) == 1:
             print("Ok, bye bye!")
             break
     print("-" * 79)
+
+elif len(sys.argv) == 2:
+    print("You must provide another argument for the package or no arguments for the question installer")
+    print("python yapi.py install package for example")
+
+elif len(sys.argv) == 3:
+    if sys.argv[1] == "install":
+        package_to_install = sys.argv[2]
+        print("Let's start the installation, these take a moment...")
+        with open("scripts/" + sys.argv[2] + ".sh", "r") as file_script:
+            bashCommand = ""
+            for line in file_script.readlines():
+                if line[0] != "#":
+                    bashCommand += line
+            bashCommand = bashCommand.replace("\n", " ; ")
+            print(bashCommand)
+            subprocess.call(bashCommand, stderr=subprocess.STDOUT, shell=True)
