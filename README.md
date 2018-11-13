@@ -1,5 +1,7 @@
 # YAPI - Yet Another Package Installer
 
+[![Build Status](https://travis-ci.org/Wabri/YAPI.svg?branch=master)](https://travis-ci.org/Wabri/YAPI)
+
 This Package Installer only works on Debian currently.
 
 **_Work in Progress_**..
