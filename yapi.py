@@ -64,10 +64,11 @@ if len(sys.argv) == 1:
         while choose not in range(package_counter + 1):
             choose = input("What package do you want to install? ")
             try:
-                if 0 <= choose <= package_counter:
-                    print("Please insert a number between 0 and {}".format(
+                choose = int(choose)
+                if choose not in range(package_counter + 1):
+                    print("The package number must be between 0 and {}".format(
                         package_counter))
-            except ValueError and TypeError:
+            except ValueError:
                 print("Please insert a number between 0 and {}".format(
                     package_counter))
                 choose = -1
