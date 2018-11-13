@@ -25,7 +25,7 @@ Current Packages Supported:
 
 You can install this packages even with this command:
 
-    curl -sL <https://raw.githubusercontent.com/Wabri/YAPI/master/scripts/>&lt;package_name>.sh | sudo bash -
+    curl -sL <https://raw.githubusercontent.com/Wabri/YAPI/master/scripts/<package_name>.sh | sudo bash -
 
 Contributors: [Wabri](https://github.com/Wabri), [IanDuncanT](https://github.com/IanDuncanT)
 
