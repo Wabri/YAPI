@@ -18,7 +18,7 @@ else:
     os.chdir(where_is_scripts)
     counter_packages = 1
     for file in glob.glob("*.sh"):
-        package_name = file.split(".")[0].capitalize()
+        package_name = file.split(".")[0]
         package_description = ""
         with open(file, "r") as open_file:
             package_description = str(open_file.readline())
@@ -58,7 +58,7 @@ if len(sys.argv) == 1:
         for package_counter in packages:
             print("{:>2}) {} - {}".format(
                 package_counter,
-                packages[package_counter][0],
+                packages[package_counter][0].capitalize(),
                 packages[package_counter][1]))
         choose = -1
         while choose not in range(package_counter + 1):
