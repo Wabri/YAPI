@@ -2,38 +2,50 @@
 
 import glob
 import os
+import pickle
 import subprocess
 import sys
 
 where_is_scripts = "scripts/"
+binary_packages_store = "packages.bin"
 
 packages = {}
 
-os.chdir(where_is_scripts)
-counter_packages = 1
-for file in glob.glob("*.sh"):
-    package_name = file.split(".")[0].capitalize()
-    package_description = ""
-    with open(file, "r") as open_file:
-        package_description = str(open_file.readline())
-        if package_description[0] == "#":
-            package_description = package_description.strip("\n").strip("# ")
+if os.path.exists(binary_packages_store):
+    with open(binary_packages_store, "rb") as packages_binary:
+        packages = pickle.load(packages_binary)
+        print("packages load from packages bin file")
+else:
+    os.chdir(where_is_scripts)
+    counter_packages = 1
+    for file in glob.glob("*.sh"):
+        package_name = file.split(".")[0].capitalize()
+        package_description = ""
+        with open(file, "r") as open_file:
+            package_description = str(open_file.readline())
+            if package_description[0] == "#":
+                package_description = package_description.strip(
+                    "\n").strip("# ")
+            else:
+                package_description = package_name
+        if file == "test.sh":
+            packages[0] = [
+                package_name,
+                package_description,
+                where_is_scripts + file
+            ]
         else:
-            package_description = package_name
-    if file == "test.sh":
-        packages[0] = [
-            package_name,
-            package_description,
-            where_is_scripts + file
-        ]
-    else:
-        packages[counter_packages] = [
-            package_name,
-            package_description,
-            where_is_scripts + file
-        ]
-        counter_packages += 1
-os.chdir("..")
+            packages[counter_packages] = [
+                package_name,
+                package_description,
+                where_is_scripts + file
+            ]
+            counter_packages += 1
+    os.chdir("..")
+    with open(binary_packages_store, "wb") as packages_binary:
+        pickle.dump(packages, packages_binary,
+                    protocol=pickle.HIGHEST_PROTOCOL)
+        print("packages save to packages bin file")
 
 yes_answer = ("Y", "Yes", "y", "yes")
 no_answer = ("N", "No", "n", "no")
@@ -65,7 +77,8 @@ if len(sys.argv) == 1:
                     if line[0] != "#":
                         bashCommand += line
                 bashCommand = bashCommand.replace("\n", " ; ")
-                subprocess.call(bashCommand, stderr=subprocess.STDOUT, shell=True)
+                subprocess.call(
+                    bashCommand, stderr=subprocess.STDOUT, shell=True)
         else:
             print("Ok, no problem...")
         choose = ""
@@ -79,7 +92,8 @@ if len(sys.argv) == 1:
     print("-" * 79)
 
 elif len(sys.argv) == 2:
-    print("You must provide another argument for the package or no arguments for the question installer")
+    print("You must provide another argument for the package or no arguments" +
+          "for the question installer")
     print("python yapi.py install package for example")
 
 elif len(sys.argv) == 3:
