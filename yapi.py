@@ -7,14 +7,13 @@ import subprocess
 import sys
 
 where_is_scripts = "scripts/"
-binary_packages_store = "packages.bin"
-
+packages_binary_file_store = "packages.bin"
 packages = {}
 
-if os.path.exists(binary_packages_store):
-    with open(binary_packages_store, "rb") as packages_binary:
+if os.path.exists(packages_binary_file_store):
+    with open(packages_binary_file_store, "rb") as packages_binary:
         packages = pickle.load(packages_binary)
-        print("---> packages load from packages bin file <---")
+        print("Packages load from {}".format(packages_binary_file_store))
 else:
     os.chdir(where_is_scripts)
     counter_packages = 1
@@ -42,10 +41,10 @@ else:
             ]
             counter_packages += 1
     os.chdir("..")
-    with open(binary_packages_store, "wb") as packages_binary:
+    with open(packages_binary_file_store, "wb") as packages_binary:
         pickle.dump(packages, packages_binary,
-                    protocol=pickle.HIGHEST_PROTOCOL)
-        print("---> packages save to packages bin file <---")
+                    protocol=0)
+        print("Packages store into {}".format(packages_binary_file_store))
 
 yes_answer = ("Y", "Yes", "y", "yes")
 no_answer = ("N", "No", "n", "no")
@@ -62,8 +61,16 @@ if len(sys.argv) == 1:
                 packages[package_counter][0],
                 packages[package_counter][1]))
         choose = -1
-        while choose not in range(0, package_counter + 1):
-            choose = int(input("What package do you want to install? "))
+        while choose not in range(package_counter + 1):
+            choose = input("What package do you want to install? ")
+            try:
+                if 0 <= choose <= package_counter:
+                    print("Please insert a number between 0 and {}".format(
+                        package_counter))
+            except ValueError and TypeError:
+                print("Please insert a number between 0 and {}".format(
+                    package_counter))
+                choose = -1
         package_to_install = choose
         while choose not in right_answer:
             choose = input(
