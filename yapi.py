@@ -14,7 +14,7 @@ packages = {}
 if os.path.exists(binary_packages_store):
     with open(binary_packages_store, "rb") as packages_binary:
         packages = pickle.load(packages_binary)
-        print("packages load from packages bin file")
+        print("---> packages load from packages bin file <---")
 else:
     os.chdir(where_is_scripts)
     counter_packages = 1
@@ -45,7 +45,7 @@ else:
     with open(binary_packages_store, "wb") as packages_binary:
         pickle.dump(packages, packages_binary,
                     protocol=pickle.HIGHEST_PROTOCOL)
-        print("packages save to packages bin file")
+        print("---> packages save to packages bin file <---")
 
 yes_answer = ("Y", "Yes", "y", "yes")
 no_answer = ("N", "No", "n", "no")
