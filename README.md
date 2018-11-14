@@ -31,6 +31,8 @@ Current Packages Supported:
 -   Skype
 -   Steam
 -   VirtualBox
+-   Pycharm Community edition
+-   IntelliJ Idea Community edition
 
 ****
 
