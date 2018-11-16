@@ -1,11 +1,12 @@
-language: python
+os: "linux"
+dist: "trusty"
 sudo: required
+language: python
 python:
   - "3.7"
   - "3.6"
   - "3.3"
   - "3.2"
-script:
-  - "python yapi.py install test"
-before_script:
-  - inv travis.make-sudouser
+env:
+  - PACKAGE="test"
+script: python yapi.py install $PACKAGE

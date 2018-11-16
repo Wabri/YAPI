@@ -93,7 +93,6 @@ elif len(sys.argv) == 3:
                     if line[0] != "#":
                         bashCommand += line
                 bashCommand = bashCommand.replace("\n", " ; ")
-                print(bashCommand)
                 subprocess.call(bashCommand, stderr=subprocess.STDOUT, shell=True)
         except (OSError, IOError, KeyError) as e:
             print("Package not found. Try again.")
