@@ -10,8 +10,6 @@ matrix:
     dist: trusty
   - python: 3.2
     dist: trusty
-  - python: 2.7
-    dist: trusty
 env:
   - PACKAGE="test"
   - PACKAGE="packageThatDoesn'tExistToTriggerErrorThatIsHandled"
