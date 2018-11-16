@@ -2,14 +2,17 @@ os: linux
 sudo: required
 language: python
 matrix:
-  - python: 3.7
-    dist: xenial
-  - python: 3.6
-    dist: trusty
-  - python: 3.3
-    dist: trusty
-  - python: 3.2
-    dist: trusty
+  include:
+    - python: 3.7
+      dist: xenial
+    - python: 3.6
+      dist: trusty
+    - python: 3.3
+      dist: trusty
+    - python: 3.2
+      dist: trusty
+    - python: 2.7
+      dist: trusty
 env:
   - PACKAGE="test"
   - PACKAGE="packageThatDoesn'tExistToTriggerErrorThatIsHandled"
