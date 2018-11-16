@@ -5,27 +5,12 @@ matrix:
   include:
     - python: 3.7
       dist: xenial
-      env:
-        - PACKAGE="test"
-        - PACKAGE="packageThatDoesn'tExistToTriggerErrorThatIsHandled"
     - python: 3.6
       dist: trusty
-      env:
-        - PACKAGE="test"
-        - PACKAGE="packageThatDoesn'tExistToTriggerErrorThatIsHandled"
     - python: 3.3
       dist: trusty
-      env:
-        - PACKAGE="test"
-        - PACKAGE="packageThatDoesn'tExistToTriggerErrorThatIsHandled"
     - python: 3.2
       dist: trusty
-      env:
-        - PACKAGE="test"
-        - PACKAGE="packageThatDoesn'tExistToTriggerErrorThatIsHandled"
     - python: 2.7
       dist: trusty
-      env:
-        - PACKAGE="test"
-        - PACKAGE="packageThatDoesn'tExistToTriggerErrorThatIsHandled"
-script: python yapi.py install $PACKAGE
+script: python yapi.py install test
