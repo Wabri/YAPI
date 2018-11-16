@@ -1,12 +1,13 @@
-os: "linux"
-dist: "trusty"
+os: linux
+dist: xenial
 sudo: required
 language: python
 python:
-  - "3.7"
-  - "3.6"
-  - "3.3"
-  - "3.2"
+  - 3.7
+  - 3.6
+  - 3.3
+  - 3.2
 env:
   - PACKAGE="test"
+  - PACKAGE="packageThatDoesn'tExistToTriggerErrorThatIsHandled"
 script: python yapi.py install $PACKAGE
