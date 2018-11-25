@@ -42,17 +42,19 @@ else:
                     protocol=0)
         print("Packages store into {}".format(packages_binary_file_store))
 
+readme_file = "README.md"
 start_update = True
 continue_read = True
 readme_updated = list()
-with open("README.md", "r") as readme:
+with open(readme_file, "r") as readme:
     for line in readme.readlines():
         if not continue_read:
             if start_update:
                 for package_counter in packages:
                     readme_updated.append(
-                        str("- " + packages[package_counter][0].capitalize() +
-                            " - " + packages[package_counter][1]))
+                        str("- {0} - {1}".format(
+                            packages[package_counter][0].capitalize(),
+                            packages[package_counter][1])))
                 start_update = False
             if line == "<!--readme_update end -->\n":
                 readme_updated.append(line)
@@ -61,6 +63,6 @@ with open("README.md", "r") as readme:
             continue_read = line != "<!--readme_update start -->\n"
             readme_updated.append(line)
 
-with open("README.tmp", "w") as readme:
+with open(readme_file, "w") as readme:
     for line in readme_updated:
         print(line.strip("\n"), file=readme)
