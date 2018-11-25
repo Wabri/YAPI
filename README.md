@@ -15,6 +15,7 @@ YAPI is a simple package installer made in python. it's free, open-source, and w
 ## Features
 
 Current Packages Supported:
+<!--readme_update start -->
 -   Atom
 -   Discord
 -   Dropbox
@@ -33,6 +34,7 @@ Current Packages Supported:
 -   VirtualBox
 -   Pycharm Community edition
 -   IntelliJ Idea Community edition
+<!--readme_update end -->
 
 ****
 
