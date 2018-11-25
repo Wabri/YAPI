@@ -109,12 +109,14 @@ elif len(sys.argv) == 3:
         package_to_install = sys.argv[2]
         print("Let's start the installation, these take a moment...")
         try:
-            with open(where_is_scripts + sys.argv[2] + ".sh", "r") as file_script:
+            file_script = where_is_scripts + sys.argv[2] + ".sh"
+            with open(file_script, "r") as file_script:
                 bashCommand = ""
                 for line in file_script.readlines():
                     if line[0] != "#":
                         bashCommand += line
                 bashCommand = bashCommand.replace("\n", " ; ")
-                subprocess.call(bashCommand, stderr=subprocess.STDOUT, shell=True)
+                subprocess.call(
+                    bashCommand, stderr=subprocess.STDOUT, shell=True)
         except (OSError, IOError, KeyError) as e:
             print("Package not found. Try again.")
