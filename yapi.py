@@ -21,22 +21,42 @@ else:
         package_name = file.split(".")[0]
         package_description = ""
         with open(file, "r") as open_file:
-            package_description = str(open_file.readline())
-            if package_description[0] == "#":
-                package_description = package_description.strip(
+            package_info = str(open_file.readline())
+            if package_info[0] == "#":
+                package_info = package_info.strip(
                     "\n").strip("# ")
+                for character in package_info:
+                    if character == "-":
+                        break
+                    package_description += character
+                package_url = ""
+                precedent_character = ""
+                get_url = False
+                for character in package_info:
+                    if not get_url and precedent_character == "-":
+                        get_url = character == " "
+                        if get_url:
+                            continue
+                    elif get_url:
+                        package_url += character
+                    precedent_character = character
+                if not package_url:
+                    package_url = "no url"
+                del precedent_character, get_url
             else:
-                package_description = package_name
+                package_description = package_url = package_name
         if file == "test.sh":
             packages[0] = [
                 package_name,
                 package_description,
+                package_url,
                 where_is_scripts + file
             ]
         else:
             packages[counter_packages] = [
                 package_name,
                 package_description,
+                package_url,
                 where_is_scripts + file
             ]
             counter_packages += 1
