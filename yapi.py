@@ -70,12 +70,66 @@ yes_answer = ("Y", "Yes", "y", "yes")
 no_answer = ("N", "No", "n", "no")
 right_answer = yes_answer + no_answer
 options = {
-    "install": ["<package_to_install>", " Install one of the packages"],
+    "install": ["<package_to_install>", "Install one of the packages"],
     "console": ["no", "Run Yapi with the terminal question installer"]
 }
 
 if len(sys.argv) == 1:
     print("GUI under constructions")
+    try:
+        import tkinter
+    except ImportError:
+        import Tkinter as tkinter
+
+    mainWindow = tkinter.Tk()
+    mainWindow.title("YAPI")
+    mainWindow.geometry('640x480')
+
+    label = tkinter.Label(mainWindow, text="Yet Another Package Installer")
+    label.grid(row=0, column=0, columnspan=3)
+
+    mainWindow.columnconfigure(0, weight=1)
+    mainWindow.columnconfigure(1, weight=1)
+    mainWindow.columnconfigure(2, weight=1)
+    mainWindow.columnconfigure(3, weight=1)
+    mainWindow.columnconfigure(4, weight=1)
+    mainWindow.rowconfigure(0, weight=1)
+    mainWindow.rowconfigure(1, weight=10)
+    mainWindow.rowconfigure(2, weight=1)
+    mainWindow.rowconfigure(3, weight=3)
+    mainWindow.rowconfigure(4, weight=3)
+
+    fileList = tkinter.Listbox(mainWindow)
+    fileList.grid(row=1, column=0, sticky='nsew', rowspan=2)
+    fileList.config(border=2, relief="sunken")
+    for package in packages:
+        fileList.insert(tkinter.END, packages[package][0].capitalize())
+    listScroll = tkinter.Scrollbar(
+        mainWindow, orient=tkinter.VERTICAL, command=fileList.yview)
+    listScroll.grid(row=1, column=1, sticky='nsw', rowspan=2)
+
+    optionFrame = tkinter.LabelFrame(mainWindow, text="File Details")
+    optionFrame.grid(row=1, column=3, sticky='ne')
+
+    rbValue = tkinter.IntVar()
+    rbValue.set(1)
+
+    radio1 = tkinter.Radiobutton(
+        optionFrame, text="Install", value=1, variable=rbValue)
+    radio1.grid(row=0, column=0, sticky="w")
+
+    radio2 = tkinter.Radiobutton(
+        optionFrame, text="Info", value=2, variable=rbValue)
+    radio2.grid(row=1, column=0, sticky="w")
+
+    radio3 = tkinter.Radiobutton(
+        optionFrame, text="Script", value=3, variable=rbValue)
+    radio3.grid(row=2, column=0, sticky="w")
+
+    choiceFrame = tkinter.Entry(mainWindow, text="Choice Frame")
+    choiceFrame.grid(row=1, column=2, sticky='ew')
+
+    mainWindow.mainloop()
 
 elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
@@ -130,15 +184,15 @@ elif len(sys.argv) == 2:
                 exit()
         print("-" * 79)
     else:
-        print("The argument {} isn't allowed,".format(sys.argv[1]) +
+        print("The argument {} isn't allowed,".format(sys.argv[1].upper()) +
               " you can choose from this arguments:")
         for option in options:
-            print("\t - {}".format(option), end='\t')
-            for element in options[option]:
-                if element != "no":
-                    print(element, end="\t")
-            print(end="\n")
-
+            if options[option][0] != "no":
+                print("\t - {} \n\t\t python yapi.py {} {}".format(
+                    options[option][1], option, options[option][0]))
+            else:
+                print("\t - {} \n\t\t python yapi.py {}".format(
+                    options[option][1], option))
 elif len(sys.argv) == 3:
     if sys.argv[1] == "install":
         package_to_install = sys.argv[2]
