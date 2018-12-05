@@ -1,15 +1,27 @@
-# YAPI - Yet Another Packages Installer
+# YAPI - Yet Another Package Installer
 
-import glob
-import os
-import pickle
-import subprocess
-import sys
+import glob       #UNIX Pathname Expansion
+import os         #Operating System Calls
+import pickle     #Serialization and Deserialization of .bin files
+import subprocess #Run Bash Commands
+import sys        #Make System Calls
+import npyscreen  #GUI Library
+import time       #Time Library
 
+#File Locations
 where_is_scripts = "scripts/"
 packages_binary_file_store = "packages.bin"
 packages = {}
+#Response and run Options
+yes_answer = ("Y", "Yes", "y", "yes")
+no_answer = ("N", "No", "n", "no")
+right_answer = yes_answer + no_answer
+options = {
+    "install": ["<package_to_install>", "Install one of the packages"],
+    "console": ["no", "Run Yapi with the terminal question installer"]
+}
 
+#Caching of Install Files
 if os.path.exists(packages_binary_file_store):
     with open(packages_binary_file_store, "rb") as packages_binary:
         packages = pickle.load(packages_binary)
@@ -66,16 +78,38 @@ else:
                     protocol=0)
         print("Packages store into {}".format(packages_binary_file_store))
 
-yes_answer = ("Y", "Yes", "y", "yes")
-no_answer = ("N", "No", "n", "no")
-right_answer = yes_answer + no_answer
-options = {
-    "install": ["<package_to_install>", "Install one of the packages"],
-    "console": ["no", "Run Yapi with the terminal question installer"]
-}
+class installApp(npyscreen.NPSAppManaged):
+    def onStart(self):
+        self.addForm("MAIN", installForm, name = "Welcome to YAPI")
+
+class installForm(npyscreen.Form):
+    def create(self):
+        F = npyscreen.Form(name = "Welcome to YAPI",)
+        self.t = F.add(npyscreen.TitleText, name = "Please enter a name to install:",)
+        self.r = F.add(npyscreen.Pager, name = "", value = "")
+        F.edit()
+    def afterEditing(self):
+        try:
+            file_script = where_is_scripts + self.t.value + ".sh"
+            with open(file_script, "r") as file_script:
+                bashCommand = ""
+                for line in file_script.readlines():
+                    if line[0] != "#":
+                        bashCommand += line
+                bashCommand = bashCommand.replace("\n", " ; ")
+                self.r.value = subprocess.call(bashCommand, stderr=subprocess.STDOUT, shell=True)
+                time.sleep(5)
+                self.parentApp.setNextForm(None)
+        except (OSError, IOError, KeyError) as e:
+            self.r.value = "Package not found. Try again."
+            time.sleep(5)
+            self.parentApp.setNextForm(None)
+
 
 if len(sys.argv) == 1:
-    print("GUI not develop yet")
+    if __name__ == "__main__":
+        App = installApp()
+        App.run()
 
 elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
