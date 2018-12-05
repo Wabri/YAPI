@@ -19,6 +19,8 @@ Current Packages Supported:
 - Test - Description of package - https://github.com/Wabri/YAPI
 - Playerctl - Playerctl command-line controller and library - https://github.com/acrisci/playerctl
 - Discord - Discord chat vocale e testuale - https://discordapp.com/
+- Mailspring - The best mail client - https://getmailspring.com/
+- Spotify - Spotify client music for all - https://www.spotify.com
 - Gitkraken - GitKraken Git Client and Glo Boards to build epic software - https://www.gitkraken.com/
 - Googlechrome - Google Chrome browser - https://www.google.it/chrome/
 - Rambox - Rambox workspace browser - https://rambox.pro
@@ -27,7 +29,7 @@ Current Packages Supported:
 - Nvidiadriver - NVIDIA driver support of Geforce 4xx and higher GPUs - https://wiki.debian.org/NvidiaGraphicsDrivers
 - Light - Light GNU/Linux application to control backlights - http://haikarainen.github.io/light
 - Oh-my-zsh - zsh + oh-my-zsh - https://ohmyz.sh/
-- Virtualbox - VirtualBox is a general-purpose full virtualizer for x86 hardware, targeted at server, desktop and embedded use - https://www.virtualbox.org/wiki/VirtualBox
+- Virtualbox - VirtualBox is a general-purpose full virtualizer for x86 hardware - https://www.virtualbox.org
 - Ideacom - IntelliJ IDEA Community edition - https://www.jetbrains.com/idea/
 - Steam - Steam ultimate entertainment platform - https://store.steampowered.com/about
 - Dropbox - Dropbox cloud storage - https://www.dropbox.com/
