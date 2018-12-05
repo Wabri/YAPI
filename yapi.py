@@ -6,6 +6,7 @@ import pickle     #Serialization and Deserialization of .bin files
 import subprocess #Run Bash Commands
 import sys        #Make System Calls
 import npyscreen  #GUI Library
+import time       #Time Library
 
 #File Locations
 where_is_scripts = "scripts/"
@@ -84,17 +85,28 @@ class installApp(npyscreen.NPSAppManaged):
 class installForm(npyscreen.Form):
     def create(self):
         F = npyscreen.Form(name = "Welcome to YAPI",)
-        t = F.add(npyscreen.TitleText, name = "Please enter a name to install:",)
-        r = F.add(npyscreen.Pager, name = "", value = "")
+        self.t = F.add(npyscreen.TitleText, name = "Please enter a name to install:",)
+        self.r = F.add(npyscreen.Pager, name = "", value = "")
         F.edit()
     def afterEditing(self):
-        self.parentApp.setNextForm(None)
-        installPackage(self, t.value())
-
+        try:
+            file_script = where_is_scripts + self.t.value + ".sh"
+            with open(file_script, "r") as file_script:
+                bashCommand = ""
+                for line in file_script.readlines():
+                    if line[0] != "#":
+                        bashCommand += line
+                bashCommand = bashCommand.replace("\n", " ; ")
+                self.r.value = subprocess.call(bashCommand, stderr=subprocess.STDOUT, shell=True)
+                time.sleep(5)
+                self.parentApp.setNextForm(None)
+        except (OSError, IOError, KeyError) as e:
+            self.r.value = "Package not found. Try again."
+            time.sleep(5)
+            self.parentApp.setNextForm(None)
 
 
 if len(sys.argv) == 1:
-    print("GUI not developed yet")
     if __name__ == "__main__":
         App = installApp()
         App.run()
@@ -178,16 +190,3 @@ elif len(sys.argv) == 3:
                     bashCommand, stderr=subprocess.STDOUT, shell=True)
         except (OSError, IOError, KeyError) as e:
             print("Package not found. Try again.")
-def installPackage(self, package_to_install):
-    try:
-        file_script = where_is_scripts + package_to_install + ".sh"
-        with open(file_script, "r") as file_script:
-            bashCommand = ""
-            for line in file_script.readlines():
-                if line[0] != "#":
-                    bashCommand += line
-            bashCommand = bashCommand.replace("\n", " ; ")
-            subprocess.call(
-                bashCommand, stderr=subprocess.STDOUT, shell=True)
-    except (OSError, IOError, KeyError) as e:
-        self.r = "Package not found. Try again."
