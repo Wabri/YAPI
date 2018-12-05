@@ -110,7 +110,7 @@ elif len(sys.argv) == 2:
                         packages[package_to_install][0]))
             if choose in yes_answer:
                 print("Let's start the installation, these take a moment...")
-                with open(packages[package_to_install][2], "r") as file_script:
+                with open(packages[package_to_install][3], "r") as file_script:
                     bashCommand = ""
                     for line in file_script.readlines():
                         if line[0] != "#":
