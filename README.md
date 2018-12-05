@@ -59,7 +59,7 @@ Or use the short method with the name of the package you want to install:
 
 ## Usage without clone or download
 
-If you dont want to download YAPI but you need one of the package, you can use it anyway with this command:
+If you dont want to download YAPI but you need one of the packages, you can use the package manager to install a package with this command:
 
     curl -sL <https://raw.githubusercontent.com/Wabri/YAPI/master/scripts/<package_name>.sh | sudo bash -
 
@@ -67,17 +67,17 @@ If you dont want to download YAPI but you need one of the package, you can use i
 
 ## How to add new script
 
-There is a sort of standard for the scripts:
+There is a format for the install scripts:
 
     # <description of package> - <reference site of package>
     <bash commands>
 
-Something like [test.sh](scripts/test.sh):
+An example of this format is [test.sh](scripts/test.sh):
 
     # Description of package - https://github.com/Wabri/YAPI
     echo "Hello world!"
 
-So if you want to add one script you have to mantain this standard. This is because the packages list on yapi.py is generated with this information, taken directly from the scripts.
+If you want to add one script you **need** to mantain this standard. This is because the packages list on yapi.py is generated with this information, taken directly from the scripts.
 
 ****
 
