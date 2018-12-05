@@ -5,4 +5,5 @@ tar zxvf idea.tar.gz
 sudo rm -r idea.tar.gz
 mv idea-* idea
 cd idea/bin
-./idea.sh
+sudo ln -s ~/idea/bin/idea.sh /usr/local/bin/idea
+echo "You can now run IntelliJ IDEA by run command idea"

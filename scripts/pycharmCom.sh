@@ -5,4 +5,5 @@ tar zxvf pycharm.tar.gz
 sudo rm -r pycharm.tar.gz
 mv pycharm-* pycharm
 cd pycharm/bin
-./pycharm.sh
+sudo ln -s ~/pycharm/bin/pycharm.sh /usr/local/bin/pycharm
+echo "You can now run PyCharm by run command pycharm"
