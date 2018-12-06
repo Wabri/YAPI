@@ -4,7 +4,7 @@ YAPI is a simple package installer made in python. it's free, open-source, and w
 
 ****
 
-## Status
+## Badges
 
 | Build status | LICENCE |
 |----------|---------------|
