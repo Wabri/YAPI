@@ -6,11 +6,9 @@ YAPI is a simple package installer made in python. it's free, open-source, and w
 
 ## Status
 
-| Linux |
+| Linux || LICENSE |
 |-------|
 |[![Build Status](https://travis-ci.org/Wabri/YAPI.svg?branch=master)](https://travis-ci.org/Wabri/YAPI)|
-| LICENSE |
-|-------|
 |[![license](https://img.shields.io/badge/LICENCE-GPL--3.0-green.svg)](LICENSE)|
 
 ****
