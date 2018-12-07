@@ -1,1 +1,1 @@
-npyscreen
+kivy

@@ -5,8 +5,15 @@ import os         #Operating System Calls
 import pickle     #Serialization and Deserialization of .bin files
 import subprocess #Run Bash Commands
 import sys        #Make System Calls
-import npyscreen  #GUI Library
 import time       #Time Library
+import kivy       #GUI Library
+kivy.require('1.10.1')
+
+from kivy.app import App
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.label import Label
+from kivy.uix.textinput import TextInput
+from kivy.uix.button import Button
 
 #File Locations
 where_is_scripts = "scripts/"
@@ -78,38 +85,58 @@ else:
                     protocol=0)
         print("Packages store into {}".format(packages_binary_file_store))
 
-class installApp(npyscreen.NPSAppManaged):
-    def onStart(self):
-        self.addForm("MAIN", installForm, name = "Welcome to YAPI")
+class packageScreen(GridLayout):
+    def __init__(self, **kwargs):
+        super(packageScreen, self).__init__(**kwargs)
+        self.packages = ""
+        for package_counter in packages:
+            self.packages += "{:>2}) {} - {}\n".format(
+                package_counter,
+                packages[package_counter][0].capitalize(),
+                packages[package_counter][1])
 
-class installForm(npyscreen.Form):
-    def create(self):
-        F = npyscreen.Form(name = "Welcome to YAPI",)
-        self.t = F.add(npyscreen.TitleText, name = "Please enter a name to install:",)
-        self.r = F.add(npyscreen.Pager, name = "", value = "")
-        F.edit()
-    def afterEditing(self):
+        self.cols = 2
+        self.packageList = Label(text = self.packages)
+        self.packageInput = TextInput(multiline = False)
+        self.commandOutput = Label(text = '')
+        self.submit = Button(text = 'Submit')
+
+        self.add_widget(self.packageList)
+        self.add_widget(self.packageInput)
+        self.add_widget(self.commandOutput)
+        self.add_widget(self.submit)
+        self.submit.bind(on_press = self.submitCallback)
+
+    def submitCallback(instance, instance2,):
+        packageText = self.packageInput.text
+        output = installPackage(packageText)
+        self.commandOutput.text = output
+
+    def installPackage(package):
         try:
-            file_script = where_is_scripts + self.t.value + ".sh"
+            file_script = where_is_scripts + package + ".sh"
             with open(file_script, "r") as file_script:
                 bashCommand = ""
                 for line in file_script.readlines():
                     if line[0] != "#":
                         bashCommand += line
                 bashCommand = bashCommand.replace("\n", " ; ")
-                self.r.value = subprocess.call(bashCommand, stderr=subprocess.STDOUT, shell=True)
-                time.sleep(5)
-                self.parentApp.setNextForm(None)
+                return subprocess.call(
+                    bashCommand, stderr=subprocess.STDOUT, shell=True)
         except (OSError, IOError, KeyError) as e:
-            self.r.value = "Package not found. Try again."
-            time.sleep(5)
-            self.parentApp.setNextForm(None)
+            return "Package not found. Try again."
 
+class YAPIApp(App):
+    def build(self):
+        return packageScreen()
+
+    def update(self):
+        return packageScreen()
 
 if len(sys.argv) == 1:
-    if __name__ == "__main__":
-        App = installApp()
-        App.run()
+    print("GUI not Developed")
+    if __name__ == '__main__':
+        YAPIApp().run()
 
 elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
