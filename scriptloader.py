@@ -37,6 +37,7 @@ def get_package_info(info):
 def load_packages_from_directory(directory, test="test.sh"):
     """Load packages from scripts."""
     import glob
+    import os
     directory = str(directory)
     packages_loaded = dict()
     os.chdir(directory)
@@ -47,8 +48,8 @@ def load_packages_from_directory(directory, test="test.sh"):
         with open(file, "r") as open_file:
             package_info = str(open_file.readline())
             if package_info[0] == "#":
-                package_description, package_url =
-                get_package_info(package_info)
+                package_description, package_url = get_package_info(
+                    package_info)
             else:
                 package_description = package_url = package_name
         if file == test:
@@ -76,4 +77,14 @@ def make_file_from_packages(packages_list, file_name):
     with open(file_name, "wb") as file:
         pickle.dump(packages_list, file, protocol=0)
         print("[LOG] Packages store into {}".format(file_name))
-    return ""
+
+
+def get_packages(from_file, directory):
+    """Get packages."""
+    import os
+    if os.path.exists(from_file):
+        return load_packages_from_file(from_file)
+    else:
+        packages = load_packages_from_directory(directory)
+        make_file_from_packages(packages, from_file)
+        return packages
