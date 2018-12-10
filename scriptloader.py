@@ -38,7 +38,6 @@ def load_packages_from_directory(directory, test="test.sh"):
     """Load packages from scripts."""
     import glob
     import os
-    directory = str(directory)
     packages_loaded = dict()
     os.chdir(directory)
     counter_packages = 1
@@ -71,20 +70,24 @@ def load_packages_from_directory(directory, test="test.sh"):
     return packages_loaded
 
 
-def make_file_from_packages(packages_list, file_name):
+def make_file_from_packages(packages_list, file_name="packages.bin"):
     """Create binary file from list."""
     import pickle
     with open(file_name, "wb") as file:
         pickle.dump(packages_list, file, protocol=0)
-        print("[LOG] Packages store into {}".format(file_name))
+        print("[LOG] {} Packages store into {}".format(
+            len(packages_list), file_name))
 
 
-def get_packages(from_file, directory):
+def get_packages(directory):
     """Get packages."""
     import os
+    from_file = directory.strip("/") + ".bin"
     if os.path.exists(from_file):
         return load_packages_from_file(from_file)
     else:
-        packages = load_packages_from_directory(directory)
-        make_file_from_packages(packages, from_file)
-        return packages
+        if os.path.exists(directory):
+            packages = load_packages_from_directory(directory)
+            make_file_from_packages(packages, from_file)
+            return packages
+    return {}

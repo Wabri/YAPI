@@ -1,9 +1,9 @@
 import glob
 import os
 import pickle
-import scriptloader
+from scriptloader import get_packages
 
-packages = scriptloader.get_packages("packages.bin", "scripts/")
+packages = get_packages("scripts/")
 
 readme_file = "README.md"
 start_update = True
@@ -26,7 +26,9 @@ with open(readme_file, "r") as readme:
         else:
             continue_read = line != "<!--readme_update start -->\n"
             readme_updated.append(line)
+del start_update, continue_read
 
 with open(readme_file, "w") as readme:
     for line in readme_updated:
         print(line.strip("\n"), file=readme)
+del readme_file, readme_updated
