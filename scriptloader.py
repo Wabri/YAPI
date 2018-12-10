@@ -90,4 +90,6 @@ def get_packages(directory):
             packages = load_packages_from_directory(directory)
             make_file_from_packages(packages, from_file)
             return packages
+        else:
+            print("[LOG] {} directory not found".format(directory))
     return {}
