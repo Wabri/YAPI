@@ -4,6 +4,7 @@ import pickle
 from scriptloader import get_packages
 
 packages = get_packages("scripts/")
+print(packages)
 
 readme_file = "README.md"
 start_update = True

@@ -14,10 +14,10 @@ def get_package_info(info):
     description = ""
     url = ""
     info = info.strip("\n").strip("# ")
-    for character in info:
-        if character == "-":
-            break
-        description += character
+    # for character in info:
+    #     if character == "-":
+    #         break
+    #     description += character
     precedent_character = ""
     get_url = False
     for character in info:
@@ -25,13 +25,16 @@ def get_package_info(info):
             get_url = character == " "
             if get_url:
                 continue
+            description += character
         elif get_url:
             url += character
+        else:
+            description += character
         precedent_character = character
     if not url:
         url = "no url"
     del precedent_character, get_url
-    return description, url
+    return description[:-2], url
 
 
 def load_packages_from_directory(directory, test="test.sh"):
