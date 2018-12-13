@@ -32,77 +32,6 @@ options = {
     "cache"  : ["no", "Recreate the cache"]
 }
 
-#Caching of Install Files
-if os.path.exists(packages_binary_file_store):
-    cacheOpen()
-else:
-    cacheCreate()
-
-try:
-    class packageScreen(GridLayout):
-        def __init__(self, **kwargs):
-            super(packageScreen, self).__init__(**kwargs)
-            self.packages = ""
-            for package_counter in packages:
-                self.packages += "{:>2}) {} - {}\n".format(
-                    package_counter,
-                    packages[package_counter][0].capitalize(),
-                    packages[package_counter][1])
-
-            self.cols = 2
-            self.packageList = Label(text = self.packages)
-            self.packageInput = TextInput(multiline = False)
-            self.commandOutput = Label(text = '')
-            self.submit = Button(text = 'Submit')
-
-            self.add_widget(self.packageList)
-            self.add_widget(self.packageInput)
-            self.add_widget(self.commandOutput)
-            self.add_widget(self.submit)
-            self.submit.bind(on_press = self.submitCallback)
-
-        def submitCallback(instance, instance2):
-            packageText = instance.packageInput.text
-            try:
-                file_script = where_is_scripts + packageText + ".sh"
-                with open(file_script, "r") as file_script:
-                    bashCommand = ""
-                    for line in file_script.readlines():
-                        if line[0] != "#":
-                            bashCommand += line
-                    bashCommand = bashCommand.replace("\n", " ; ")
-                    output = str(subprocess.call(
-                        bashCommand, stderr=subprocess.STDOUT, shell=True))
-            except (OSError, IOError, KeyError) as e:
-                output = "Package not found. Try again."
-            instance.commandOutput.text = output
-
-    class YAPIApp(App):
-        def build(self):
-            return packageScreen()
-except:
-    pass
-
-if len(sys.argv) == 1:
-    if __name__ == '__main__':
-        YAPIApp().run()
-
-elif len(sys.argv) == 2:
-    if (sys.argv[1] == "console"):
-        consoleInstall()
-    elif (sys.argv[1] == "update"):
-        installPackage(yapi)
-    elif (sys.argv[1] == "cache"):
-        cacheRemove()
-        cacheCreate()
-
-    else:
-        argumentError(sys.argv[1])
-
-elif len(sys.argv) == 3:
-    if sys.argv[1] == "install":
-        installPackage(sys.argv[2])
-
 def installPackage(package):
     try:
         file_script = where_is_scripts + package + ".sh"
@@ -239,3 +168,74 @@ def argumentError(arg):
         else:
             print("\t - {} \n\t\t python yapi.py {}".format(
                 options[option][1], option))
+
+#Caching of Install Files
+if os.path.exists(packages_binary_file_store):
+    cacheOpen()
+else:
+    cacheCreate()
+
+try:
+    class packageScreen(GridLayout):
+        def __init__(self, **kwargs):
+            super(packageScreen, self).__init__(**kwargs)
+            self.packages = ""
+            for package_counter in packages:
+                self.packages += "{:>2}) {} - {}\n".format(
+                    package_counter,
+                    packages[package_counter][0].capitalize(),
+                    packages[package_counter][1])
+
+            self.cols = 2
+            self.packageList = Label(text = self.packages)
+            self.packageInput = TextInput(multiline = False)
+            self.commandOutput = Label(text = '')
+            self.submit = Button(text = 'Submit')
+
+            self.add_widget(self.packageList)
+            self.add_widget(self.packageInput)
+            self.add_widget(self.commandOutput)
+            self.add_widget(self.submit)
+            self.submit.bind(on_press = self.submitCallback)
+
+        def submitCallback(instance, instance2):
+            packageText = instance.packageInput.text
+            try:
+                file_script = where_is_scripts + packageText + ".sh"
+                with open(file_script, "r") as file_script:
+                    bashCommand = ""
+                    for line in file_script.readlines():
+                        if line[0] != "#":
+                            bashCommand += line
+                    bashCommand = bashCommand.replace("\n", " ; ")
+                    output = str(subprocess.call(
+                        bashCommand, stderr=subprocess.STDOUT, shell=True))
+            except (OSError, IOError, KeyError) as e:
+                output = "Package not found. Try again."
+            instance.commandOutput.text = output
+
+    class YAPIApp(App):
+        def build(self):
+            return packageScreen()
+except:
+    pass
+
+if len(sys.argv) == 1:
+    if __name__ == '__main__':
+        YAPIApp().run()
+
+elif len(sys.argv) == 2:
+    if (sys.argv[1] == "console"):
+        consoleInstall()
+    elif (sys.argv[1] == "update"):
+        installPackage(yapi)
+    elif (sys.argv[1] == "cache"):
+        cacheRemove()
+        cacheCreate()
+
+    else:
+        argumentError(sys.argv[1])
+
+elif len(sys.argv) == 3:
+    if sys.argv[1] == "install":
+        installPackage(sys.argv[2])
