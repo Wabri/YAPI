@@ -128,7 +128,6 @@ class YAPIApp(App):
         return packageScreen()
 
 if len(sys.argv) == 1:
-    print("GUI not Developed")
     if __name__ == '__main__':
         YAPIApp().run()
 
