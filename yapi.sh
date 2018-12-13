@@ -1,4 +1,3 @@
-#!/bin/bash
 if [$1 == "install"]
 then
   python yapi.py $1 $2

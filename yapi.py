@@ -107,30 +107,24 @@ class packageScreen(GridLayout):
         self.add_widget(self.submit)
         self.submit.bind(on_press = self.submitCallback)
 
-    def submitCallback(instance, instance2,):
-        packageText = self.packageInput.text
-        output = installPackage(packageText)
-        self.commandOutput.text = output
-
-    def installPackage(package):
+    def submitCallback(instance, instance2):
+        packageText = instance.packageInput.text
         try:
-            file_script = where_is_scripts + package + ".sh"
+            file_script = where_is_scripts + packageText + ".sh"
             with open(file_script, "r") as file_script:
                 bashCommand = ""
                 for line in file_script.readlines():
                     if line[0] != "#":
                         bashCommand += line
                 bashCommand = bashCommand.replace("\n", " ; ")
-                return subprocess.call(
-                    bashCommand, stderr=subprocess.STDOUT, shell=True)
+                output = str(subprocess.call(
+                    bashCommand, stderr=subprocess.STDOUT, shell=True))
         except (OSError, IOError, KeyError) as e:
-            return "Package not found. Try again."
+            output = "Package not found. Try again."
+        instance.commandOutput.text = output
 
 class YAPIApp(App):
     def build(self):
-        return packageScreen()
-
-    def update(self):
         return packageScreen()
 
 if len(sys.argv) == 1:
