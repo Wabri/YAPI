@@ -222,7 +222,10 @@ except:
 
 if len(sys.argv) == 1:
     if __name__ == '__main__':
-        YAPIApp().run()
+        try:
+            YAPIApp().run()
+        except:
+            print("Kivy not installed. Please install or use arguments")
 
 elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
