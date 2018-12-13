@@ -14,7 +14,7 @@ try:
  from kivy.uix.textinput import TextInput
  from kivy.uix.button import Button
  kivy.require('1.10.1')
-except ImportError, e:
+except (ImportError) as e:
  pass
 
 #File Locations
@@ -129,7 +129,7 @@ try:
     class YAPIApp(App):
         def build(self):
             return packageScreen()
-except e:
+except:
     pass
 
 if len(sys.argv) == 1:
