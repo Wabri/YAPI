@@ -3,3 +3,6 @@
 
 # Ignore python cache
 __pycache__/
+
+# Ignore virtualenv
+env/
