@@ -42,11 +42,18 @@ Current Packages Supported:
 
 ## Install
 
-To use YAPI you need to run this command:
+To use YAPI you need to clone this repository:
 
-    wget https://raw.githubusercontent.com/Wabri/YAPI/master/scripts/yapi.sh -O - | sudo bash -
+    git clone https://github.com/Wabri/YAPI.git`
 
-This command clone the repository and shows the commands that you can use.
+Then run the yapi.py python script:
+
+    ./yapi.sh
+
+Or use the short method with the name of the package you want to install:
+
+    ./yapi.sh install <package_name>
+
 
 ****
 

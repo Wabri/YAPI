@@ -3,7 +3,7 @@ import os
 import pickle
 from cache_manager import get_packages
 
-packages = get_packages("scripts/")
+packages = get_packages("scripts/", "test.sh", "updateYapiScripts.sh")
 
 readme_file = "README.md"
 start_update = True

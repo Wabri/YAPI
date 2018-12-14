@@ -21,7 +21,7 @@ class packageScreen(GridLayout):
         """Constructor."""
         super(packageScreen, self).__init__(**kwargs)
         self.packages = cache_manager.get_packages(
-            where_is_scripts, "test.sh", "yapi.sh")
+            where_is_scripts, "test.sh", "updateYapiScripts.sh")
         for package_counter in self.packages:
             self.packages += "{:>2}) {} - {}\n".format(
                 package_counter,
