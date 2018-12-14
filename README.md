@@ -43,6 +43,7 @@ Current Packages Supported:
 ## Install
 
 To use YAPI you need to run this command:
+
     curl -sL <https://raw.githubusercontent.com/Wabri/YAPI/master/scripts/<package_name>.sh | sudo bash -
 This command clone the repository and shows the commands that you can use.
 
