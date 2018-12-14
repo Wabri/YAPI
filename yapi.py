@@ -16,10 +16,9 @@ options = {
 }
 
 
-def argumentError(arg):
-    """Argument error."""
-    print("The argument {} isn't allowed,".format(arg.upper()) +
-          " you can choose from this arguments:")
+def print_commands_allowed():
+    """Print commands."""
+    print("You can choose from this arguments: ")
     for option in options:
         if options[option][0] != "no":
             print("\t - {} \n\t\t python yapi.py {} {}".format(
@@ -27,6 +26,12 @@ def argumentError(arg):
         else:
             print("\t - {} \n\t\t python yapi.py {}".format(
                 options[option][1], option))
+
+
+def argumentError(arg):
+    """Argument error."""
+    print("The argument {} isn't allowed,".format(arg.upper()))
+    print_commands_allowed()
 
 
 if len(sys.argv) == 1:
@@ -48,6 +53,8 @@ elif len(sys.argv) == 2:
             cache_manager.get_packages(where_is_scripts, "test.sh", "yapi.sh")
         except Exception:
             print("No cache file found")
+    elif (sys.argv[1] == "help"):
+        print_commands_allowed()
     else:
         argumentError(sys.argv[1])
 elif len(sys.argv) == 3:
