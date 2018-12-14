@@ -44,7 +44,7 @@ Current Packages Supported:
 
 To use YAPI you need to run this command:
 
-    curl -sL https://raw.githubusercontent.com/Wabri/YAPI/master/scripts/yapi.sh | sudo bash
+    wget https://raw.githubusercontent.com/Wabri/YAPI/master/scripts/yapi.sh -O - | sudo bash -
 
 This command clone the repository and shows the commands that you can use.
 
@@ -54,7 +54,7 @@ This command clone the repository and shows the commands that you can use.
 
 If you dont want to download YAPI but you need one of the packages, you can use the package manager to install a package with this command:
 
-    curl -sL https://raw.githubusercontent.com/Wabri/YAPI/master/scripts/<package_name>.sh | sudo bash -
+    wget https://raw.githubusercontent.com/Wabri/YAPI/master/scripts/<package_name>.sh -O - | sudo bash -
 
 ****
 
