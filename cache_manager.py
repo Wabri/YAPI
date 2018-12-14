@@ -33,7 +33,7 @@ def get_package_info(info):
     return description[:-2], url
 
 
-def load_packages_from_directory(directory, test="yapi.sh"):
+def load_packages_from_directory(directory, *ignore_file):
     """Load packages from scripts."""
     import glob
     import os
@@ -50,13 +50,8 @@ def load_packages_from_directory(directory, test="yapi.sh"):
                     package_info)
             else:
                 package_description = package_url = package_name
-        if file == test:
-            packages_loaded[0] = [
-                package_name,
-                package_description,
-                package_url,
-                directory + file
-            ]
+        if file in ignore_file:
+            print("File {} ignored".format(file))
         else:
             packages_loaded[counter_packages] = [
                 package_name,
@@ -78,7 +73,7 @@ def make_bin_from_packages(packages_list, file_name="packages.bin"):
             len(packages_list), file_name))
 
 
-def get_packages(directory):
+def get_packages(directory, *test):
     """Get packages."""
     import os
     from_file = directory.strip("/") + ".bin"
@@ -86,7 +81,7 @@ def get_packages(directory):
         return load_packages_from_file(from_file)
     else:
         if os.path.exists(directory):
-            packages = load_packages_from_directory(directory)
+            packages = load_packages_from_directory(directory, *test)
             make_bin_from_packages(packages, from_file)
             return packages
         else:

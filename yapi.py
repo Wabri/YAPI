@@ -35,7 +35,8 @@ if len(sys.argv) == 1:
 elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
         import console_interface
-        packages = cache_manager.get_packages(where_is_scripts)
+        packages = cache_manager.get_packages(
+            where_is_scripts, "test.sh", "yapi.sh")
         console_interface.run(packages)
     elif (sys.argv[1] == "update"):
         script_runner.runScript(where_is_scripts + "yapi.sh")
@@ -44,11 +45,11 @@ elif len(sys.argv) == 2:
             import os
             cache_file = where_is_scripts.strip("/") + ".bin"
             os.remove(cache_file)
-            cache_manager.make_bin_from_packages(packages, cache_file)
+            cache_manager.get_packages(where_is_scripts, "test.sh", "yapi.sh")
         except Exception:
             print("No cache file found")
     else:
         argumentError(sys.argv[1])
 elif len(sys.argv) == 3:
     if sys.argv[1] == "install":
-        script_runner.runScript(sys.argv[2])
+        script_runner.runScript(where_is_scripts + sys.argv[2] + ".sh")

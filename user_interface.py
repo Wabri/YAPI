@@ -20,7 +20,8 @@ class packageScreen(GridLayout):
     def __init__(self, **kwargs):
         """Constructor."""
         super(packageScreen, self).__init__(**kwargs)
-        self.packages = cache_manager.get_packages(where_is_scripts)
+        self.packages = cache_manager.get_packages(
+            where_is_scripts, "test.sh", "yapi.sh")
         for package_counter in self.packages:
             self.packages += "{:>2}) {} - {}\n".format(
                 package_counter,
