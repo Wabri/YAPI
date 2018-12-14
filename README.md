@@ -48,11 +48,11 @@ To use YAPI you need to clone this repository:
 
 Then run the yapi.py python script:
 
-    python3 yapi.py
+    ./yapi.sh
 
 Or use the short method with the name of the package you want to install:
 
-    python3 yapi.py install <package_name>
+    ./yapi.sh install <package_name>
 
 ****
 
