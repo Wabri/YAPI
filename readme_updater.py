@@ -1,7 +1,7 @@
+from cache_manager import get_packages
 import glob
 import os
 import pickle
-from cache_manager import get_packages
 
 packages = get_packages("scripts/", "test.sh", "updateYapiScripts.sh")
 
