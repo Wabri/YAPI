@@ -1,7 +1,7 @@
 import glob
 import os
 import pickle
-from scriptloader import get_packages
+from cache_manager import get_packages
 
 packages = get_packages("scripts/")
 

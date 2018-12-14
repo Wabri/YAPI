@@ -16,7 +16,6 @@ YAPI is a simple package installer made in python. it's free, open-source, and w
 
 Current Packages Supported:
 <!--readme_update start -->
-- Test - Description of package - https://github.com/Wabri/YAPI
 - Playerctl - Playerctl command-line controller and library - https://github.com/acrisci/playerctl
 - Discord - Discord chat vocale e testuale - https://discordapp.com/
 - Mailspring - The best mail client - https://getmailspring.com/
