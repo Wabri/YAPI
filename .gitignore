@@ -1,2 +1,5 @@
 # Ignore bin file
 *.bin
+
+# Ignore python cache
+__pycache__/
