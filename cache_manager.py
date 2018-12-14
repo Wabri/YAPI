@@ -14,10 +14,6 @@ def get_package_info(info):
     description = ""
     url = ""
     info = info.strip("\n").strip("# ")
-    # for character in info:
-    #     if character == "-":
-    #         break
-    #     description += character
     precedent_character = ""
     get_url = False
     for character in info:
@@ -37,7 +33,7 @@ def get_package_info(info):
     return description[:-2], url
 
 
-def load_packages_from_directory(directory, test="test.sh"):
+def load_packages_from_directory(directory, test="yapi.sh"):
     """Load packages from scripts."""
     import glob
     import os
@@ -73,7 +69,7 @@ def load_packages_from_directory(directory, test="test.sh"):
     return packages_loaded
 
 
-def make_file_from_packages(packages_list, file_name="packages.bin"):
+def make_bin_from_packages(packages_list, file_name="packages.bin"):
     """Create binary file from list."""
     import pickle
     with open(file_name, "wb") as file:
@@ -91,7 +87,7 @@ def get_packages(directory):
     else:
         if os.path.exists(directory):
             packages = load_packages_from_directory(directory)
-            make_file_from_packages(packages, from_file)
+            make_bin_from_packages(packages, from_file)
             return packages
         else:
             print("[LOG] {} directory not found".format(directory))

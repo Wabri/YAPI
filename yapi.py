@@ -1,112 +1,26 @@
 # YAPI - Yet Another Package Installer
 
-import glob       #UNIX Pathname Expansion
-import os         #Operating System Calls
-import pickle     #Serialization and Deserialization of .bin files
-import subprocess #Run Bash Commands
-import sys        #Make System Calls
-import time       #Time Library
-try:
- import kivy      #GUI Library
- from kivy.app import App
- from kivy.uix.gridlayout import GridLayout
- from kivy.uix.label import Label
- from kivy.uix.textinput import TextInput
- from kivy.uix.button import Button
- kivy.require('1.10.1')
-except (ImportError) as e:
- pass
+import cache_manager
+import script_runner
+import subprocess  # Run Bash Commands
+import sys  # Make System Calls
 
-#File Locations
+# File Locations
 where_is_scripts = "scripts/"
-packages_binary_file_store = "packages.bin"
-packages = {}
-#Response and run Options
+# Response and run Options
 yes_answer = ("Y", "Yes", "y", "yes")
 no_answer = ("N", "No", "n", "no")
 right_answer = yes_answer + no_answer
 options = {
     "install": ["<package_to_install>", "Install one of the packages"],
     "console": ["no", "Run Yapi with the terminal question installer"],
-    "update" : ["no", "Pull the newest YAPI version from github"],
-    "cache"  : ["no", "Recreate the cache"]
+    "update": ["no", "Pull the newest YAPI version from github"],
+    "cache": ["no", "Recreate the cache"]
 }
 
-def installPackage(package):
-    try:
-        file_script = where_is_scripts + package + ".sh"
-        with open(file_script, "r") as file_script:
-            bashCommand = ""
-            for line in file_script.readlines():
-                if line[0] != "#":
-                    bashCommand += line
-            bashCommand = bashCommand.replace("\n", " ; ")
-            subprocess.call(
-                bashCommand, stderr=subprocess.STDOUT, shell=True)
-    except (OSError, IOError, KeyError) as e:
-        print("Package not found. Try again.")
-
-def cacheCreate():
-    os.chdir(where_is_scripts)
-    counter_packages = 1
-    for file in glob.glob("*.sh"):
-        package_name = file.split(".")[0]
-        package_description = ""
-        with open(file, "r") as open_file:
-            package_info = str(open_file.readline())
-            if package_info[0] == "#":
-                package_info = package_info.strip(
-                    "\n").strip("# ")
-                for character in package_info:
-                    if character == "-":
-                        break
-                    package_description += character
-                package_url = ""
-                precedent_character = ""
-                get_url = False
-                for character in package_info:
-                    if not get_url and precedent_character == "-":
-                        get_url = character == " "
-                        if get_url:
-                            continue
-                    elif get_url:
-                        package_url += character
-                    precedent_character = character
-                if not package_url:
-                    package_url = "no url"
-                del precedent_character, get_url
-            else:
-                package_description = package_url = package_name
-        if file == "test.sh":
-            packages[0] = [
-                package_name,
-                package_description,
-                package_url,
-                where_is_scripts + file
-            ]
-        else:
-            packages[counter_packages] = [
-                package_name,
-                package_description,
-                package_url,
-                where_is_scripts + file
-            ]
-            counter_packages += 1
-    os.chdir("..")
-    with open(packages_binary_file_store, "wb") as packages_binary:
-        pickle.dump(packages, packages_binary,
-                    protocol=0)
-        print("Packages store into {}".format(packages_binary_file_store))
-
-def cacheRemove():
-    os.remove("packages.bin")
-
-def cacheOpen():
-    with open(packages_binary_file_store, "rb") as packages_binary:
-        packages = pickle.load(packages_binary)
-        print("Packages load from {}".format(packages_binary_file_store))
 
 def consoleInstall():
+    """Console installer."""
     continue_to_ask = True
     while continue_to_ask:
         print("-" * 79)
@@ -158,7 +72,9 @@ def consoleInstall():
             exit()
     print("-" * 79)
 
+
 def argumentError(arg):
+    """Argument error."""
     print("The argument {} isn't allowed,".format(arg.upper()) +
           " you can choose from this arguments:")
     for option in options:
@@ -169,17 +85,26 @@ def argumentError(arg):
             print("\t - {} \n\t\t python yapi.py {}".format(
                 options[option][1], option))
 
-#Caching of Install Files
-if os.path.exists(packages_binary_file_store):
-    cacheOpen()
-else:
-    cacheCreate()
 
-try:
+if len(sys.argv) == 1:
+    try:
+        import kivy  # GUI Library
+        from kivy.app import App
+        from kivy.uix.button import Button
+        from kivy.uix.gridlayout import GridLayout
+        from kivy.uix.label import Label
+        from kivy.uix.textinput import TextInput
+        kivy.require('1.10.1')
+    except ImportError:
+        pass
+
     class packageScreen(GridLayout):
+        """GUI."""
+
         def __init__(self, **kwargs):
+            """Constructor."""
             super(packageScreen, self).__init__(**kwargs)
-            self.packages = ""
+            self.packages = cache_manager.get_packages(where_is_scripts)
             for package_counter in packages:
                 self.packages += "{:>2}) {} - {}\n".format(
                     package_counter,
@@ -187,18 +112,19 @@ try:
                     packages[package_counter][1])
 
             self.cols = 2
-            self.packageList = Label(text = self.packages)
-            self.packageInput = TextInput(multiline = False)
-            self.commandOutput = Label(text = '')
-            self.submit = Button(text = 'Submit')
+            self.packageList = Label(text=self.packages)
+            self.packageInput = TextInput(multiline=False)
+            self.commandOutput = Label(text='')
+            self.submit = Button(text='Submit')
 
             self.add_widget(self.packageList)
             self.add_widget(self.packageInput)
             self.add_widget(self.commandOutput)
             self.add_widget(self.submit)
-            self.submit.bind(on_press = self.submitCallback)
+            self.submit.bind(on_press=self.submitCallback)
 
         def submitCallback(instance, instance2):
+            """Installer."""
             packageText = instance.packageInput.text
             try:
                 file_script = where_is_scripts + packageText + ".sh"
@@ -210,35 +136,39 @@ try:
                     bashCommand = bashCommand.replace("\n", " ; ")
                     output = str(subprocess.call(
                         bashCommand, stderr=subprocess.STDOUT, shell=True))
-            except (OSError, IOError, KeyError) as e:
+            except (OSError, IOError, KeyError):
                 output = "Package not found. Try again."
             instance.commandOutput.text = output
 
     class YAPIApp(App):
-        def build(self):
-            return packageScreen()
-except:
-    pass
+        """YAPI GUI."""
 
-if len(sys.argv) == 1:
+        def build(self):
+            """Yapi build."""
+            return packageScreen()
     if __name__ == '__main__':
         try:
             YAPIApp().run()
-        except:
+        except Exception:
             print("Kivy not installed. Please install or use arguments")
 
 elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
+        packages = cache_manager.get_packages(where_is_scripts)
         consoleInstall()
     elif (sys.argv[1] == "update"):
-        installPackage(yapi)
+        script_runner.runScript(where_is_scripts + "yapi.sh")
     elif (sys.argv[1] == "cache"):
-        cacheRemove()
-        cacheCreate()
-
+        try:
+            import os
+            cache_file = where_is_scripts.strip("/") + ".bin"
+            os.remove(cache_file)
+            cache_manager.make_bin_from_packages(packages, cache_file)
+        except FileNotFoundError:
+            print("No cache found")
     else:
         argumentError(sys.argv[1])
 
 elif len(sys.argv) == 3:
     if sys.argv[1] == "install":
-        installPackage(sys.argv[2])
+        script_runner.runScript(sys.argv[2])

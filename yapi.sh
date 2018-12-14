@@ -1,9 +1,9 @@
 if [$1 == "install"]
 then
-  python yapi.py $1 $2
+  python3 yapi.py $1 $2
 elif [$1 == "console"]
 then
-  python yapi.py $1
+  python3 yapi.py $1
 else
-  python yapi.py
+  python3 yapi.py
 fi
