@@ -36,8 +36,8 @@ def argumentError(arg):
 
 
 if len(sys.argv) == 1:
-    import user_interface
-    user_interface.run()
+    from user_interface import YAPIApp
+    YAPIApp().run()
 elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
         import console_interface

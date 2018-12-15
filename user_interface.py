@@ -15,18 +15,18 @@ where_is_scripts = "scripts/"
 
 
 class packageScreen(GridLayout):
-    """GUI."""
+    """Package screen."""
 
     def __init__(self, **kwargs):
         """Constructor."""
         super(packageScreen, self).__init__(**kwargs)
-        self.packages = cache_manager.get_packages(
-            where_is_scripts, "test.sh", "updateYapiScripts.sh")
-        for package_counter in self.packages:
+        packages = cache_manager.get_packages(where_is_scripts)
+        self.packages = ""
+        for package_counter in packages:
             self.packages += "{:>2}) {} - {}\n".format(
                 package_counter,
-                self.packages[package_counter][0].capitalize(),
-                self.packages[package_counter][1])
+                packages[package_counter][0].capitalize(),
+                packages[package_counter][1])
 
         self.cols = 2
         self.packageList = Label(text=self.packages)
@@ -41,7 +41,7 @@ class packageScreen(GridLayout):
         self.submit.bind(on_press=self.submitCallback)
 
     def submitCallback(instance, instance2):
-        """Installer."""
+        """Output."""
         packageText = instance.packageInput.text
         try:
             file_script = where_is_scripts + packageText + ".sh"
@@ -59,17 +59,8 @@ class packageScreen(GridLayout):
 
 
 class YAPIApp(App):
-    """YAPI GUI."""
+    """Class YAPIApp."""
 
     def build(self):
-        """Yapi build."""
+        """Constructor."""
         return packageScreen()
-
-
-def run():
-    """Run GUI."""
-    if __name__ == '__main__':
-        try:
-            YAPIApp().run()
-        except Exception:
-            print("Kivy not installed. Please install or use arguments")
