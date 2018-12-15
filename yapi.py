@@ -12,7 +12,8 @@ options = {
     "install": ["<package_to_install>", "Install one of the packages"],
     "console": ["no", "Run Yapi with the terminal question installer"],
     "update": ["no", "Pull the newest YAPI version from github"],
-    "cache": ["no", "Recreate the cache"]
+    "cache": ["no", "Recreate the cache"],
+    "help": ["no", "Information about YAPI"]
 }
 
 
