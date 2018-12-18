@@ -1,4 +1,5 @@
 
+
 def load_config_from_file(config_input, binary_output="config.bin"):
     """Reload configuration from file."""
     configuration = dict()
@@ -17,7 +18,31 @@ def load_config_from_file(config_input, binary_output="config.bin"):
             if line[0] == "#":
                 config_element = line.strip("# ").strip("\n")
         for conf in configuration:
-            print(configuration[conf])
+            print(conf, configuration[conf])
 
+
+def get_help():
+    """Get help."""
+    return dict()
+
+
+def get_yes_answer():
+    """Get yes answer."""
+    return dict()
+
+
+def get_no_answer():
+    """Get no answer."""
+    return dict()
+
+
+def get_directory_target():
+    """Get directory target."""
+    return dict()
+
+
+def get_ignore_files():
+    """Get ignore files."""
+    return dict()
 
 load_config_from_file("yapi.config")
