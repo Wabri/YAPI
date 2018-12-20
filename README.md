@@ -4,11 +4,11 @@ YAPI is a simple package installer made in python. it's free, open-source, and w
 
 ****
 
-## Status
+## Badges
 
-| Linux |
-|-------|
-|[![Build Status](https://travis-ci.org/Wabri/YAPI.svg?branch=master)](https://travis-ci.org/Wabri/YAPI)|
+| Build status | LICENCE |
+|----------|---------------|
+| [![Build Status](https://travis-ci.org/Wabri/YAPI.svg?branch=master)](https://travis-ci.org/Wabri/YAPI) | [![license](https://img.shields.io/badge/LICENCE-GPL--3.0-green.svg)](LICENSE) | |
 
 ****
 
@@ -16,7 +16,6 @@ YAPI is a simple package installer made in python. it's free, open-source, and w
 
 Current Packages Supported:
 <!--readme_update start -->
-- Test - Description of package - https://github.com/Wabri/YAPI
 - Playerctl - Playerctl command-line controller and library - https://github.com/acrisci/playerctl
 - Discord - Discord chat vocale e testuale - https://discordapp.com/
 - Mailspring - The best mail client - https://getmailspring.com/
@@ -49,11 +48,12 @@ To use YAPI you need to clone this repository:
 
 Then run the yapi.py python script:
 
-    python3 yapi.py
+    ./yapi.sh
 
 Or use the short method with the name of the package you want to install:
 
-    python3 yapi.py install <package_name>
+    ./yapi.sh install <package_name>
+
 
 ****
 
@@ -61,7 +61,7 @@ Or use the short method with the name of the package you want to install:
 
 If you dont want to download YAPI but you need one of the packages, you can use the package manager to install a package with this command:
 
-    curl -sL <https://raw.githubusercontent.com/Wabri/YAPI/master/scripts/<package_name>.sh | sudo bash -
+    wget https://raw.githubusercontent.com/Wabri/YAPI/master/scripts/<package_name>.sh -O - | sudo bash -
 
 ****
 
