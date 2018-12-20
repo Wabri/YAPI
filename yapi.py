@@ -8,21 +8,21 @@ import sys                    #Make System Calls
 import time                   #Time Library
 import toga                   #GUI Library
 from toga.style.pack import * #GUI Components
+import cache_manager
+import script_runner
 
-#File Locations
+# File Locations
 where_is_scripts = "scripts/"
-packages_binary_file_store = "packages.bin"
-packages = {}
-#Response and run Options
-yes_answer = ("Y", "Yes", "y", "yes")
-no_answer = ("N", "No", "n", "no")
-right_answer = yes_answer + no_answer
+
+# Response and run Options
 options = {
     "install": ["<package_to_install>", "Install one of the packages"],
     "console": ["no", "Run Yapi with the terminal question installer"],
-    "update" : ["no", "Pull the newest YAPI version from github"],
-    "cache"  : ["no", "Recreate the cache"]
+    "update": ["no", "Pull the newest YAPI version from github"],
+    "cache": ["no", "Recreate the cache"],
+    "help": ["no", "Information about YAPI"]
 }
+
 
 def installPackage(package):
     try:
@@ -151,8 +151,9 @@ def consoleInstall():
             exit()
     print("-" * 79)
 
-def argumentError(arg):
-    print("The argument {} isn't allowed,".format(arg.upper()) + " you can choose from this arguments:")
+def print_commands_allowed():
+    """Print commands."""
+    print("You can choose from this arguments: ")
     for option in options:
         if options[option][0] != "no":
             print("\t - {} \n\t\t python yapi.py {} {}".format(
@@ -160,6 +161,11 @@ def argumentError(arg):
         else:
             print("\t - {} \n\t\t python yapi.py {}".format(
                 options[option][1], option))
+            
+def argumentError(arg):
+    """Argument error."""
+    print("The argument {} isn't allowed,".format(arg.upper()))
+    print_commands_allowed()
 
 def build(app):
     def installHandle(widget):
@@ -208,22 +214,30 @@ else:
     cacheCreate()
 
 if len(sys.argv) == 1:
-    print("GUI being developed.")
     if __name__ == '__main__':
         main().main_loop()
 
 elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
-        consoleInstall()
+        import console_interface
+        packages = cache_manager.get_packages(
+            where_is_scripts, "test.sh", "updateYapiScripts.sh")
+        console_interface.run(packages)
     elif (sys.argv[1] == "update"):
-        installPackage(yapi)
+        script_runner.runScript(where_is_scripts + "updateYapiScripts.sh")
     elif (sys.argv[1] == "cache"):
-        cacheRemove()
-        cacheCreate()
-
+        try:
+            import os
+            cache_file = where_is_scripts.strip("/") + ".bin"
+            os.remove(cache_file)
+            cache_manager.get_packages(
+                where_is_scripts, "test.sh", "updateYapiScripts.sh")
+        except Exception:
+            print("No cache file found")
+    elif (sys.argv[1] == "help"):
+        print_commands_allowed()
     else:
         argumentError(sys.argv[1])
-
 elif len(sys.argv) == 3:
     if sys.argv[1] == "install":
-        installPackage(sys.argv[2])
+        script_runner.runScript(where_is_scripts + sys.argv[2] + ".sh")
