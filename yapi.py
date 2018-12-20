@@ -1,21 +1,13 @@
 # YAPI - Yet Another Package Installer
 
-import glob       #UNIX Pathname Expansion
-import os         #Operating System Calls
-import pickle     #Serialization and Deserialization of .bin files
-import subprocess #Run Bash Commands
-import sys        #Make System Calls
-import time       #Time Library
-try:
- import kivy      #GUI Library
- from kivy.app import App
- from kivy.uix.gridlayout import GridLayout
- from kivy.uix.label import Label
- from kivy.uix.textinput import TextInput
- from kivy.uix.button import Button
- kivy.require('1.10.1')
-except (ImportError) as e:
- pass
+import glob                   #UNIX Pathname Expansion
+import os                     #Operating System Calls
+import pickle                 #Serialization and Deserialization of .bin files
+import subprocess             #Run Bash Commands
+import sys                    #Make System Calls
+import time                   #Time Library
+import toga                   #GUI Library
+from toga.style.pack import * #GUI Components
 
 #File Locations
 where_is_scripts = "scripts/"
@@ -41,8 +33,9 @@ def installPackage(package):
                 if line[0] != "#":
                     bashCommand += line
             bashCommand = bashCommand.replace("\n", " ; ")
-            subprocess.call(
+            output = subprocess.call(
                 bashCommand, stderr=subprocess.STDOUT, shell=True)
+            return output
     except (OSError, IOError, KeyError) as e:
         print("Package not found. Try again.")
 
@@ -159,8 +152,7 @@ def consoleInstall():
     print("-" * 79)
 
 def argumentError(arg):
-    print("The argument {} isn't allowed,".format(arg.upper()) +
-          " you can choose from this arguments:")
+    print("The argument {} isn't allowed,".format(arg.upper()) + " you can choose from this arguments:")
     for option in options:
         if options[option][0] != "no":
             print("\t - {} \n\t\t python yapi.py {} {}".format(
@@ -169,63 +161,56 @@ def argumentError(arg):
             print("\t - {} \n\t\t python yapi.py {}".format(
                 options[option][1], option))
 
-#Caching of Install Files
+def build(app):
+    def installHandle(widget):
+        packageToInstall = packageInput.value
+        resultInput.value = installPackage(packageToInstall)
+
+    packageString = ""
+    for package_counter in packages:
+        packageString += "{:>2}) {} - {}".format(
+            package_counter,
+            packages[package_counter][0].capitalize(),
+            packages[package_counter][1])
+    box = toga.Box()
+    listBox = toga.Box()
+    listLabel = toga.Label('Packages Available: ' + packageString)
+    packageBox = toga.Box()
+    packageLabel = toga.Label('Package To Install:', style=Pack(text_align=RIGHT))
+    packageInput = toga.TextInput()
+    submitBox = toga.Box()
+    install = toga.Button('Install Package', on_press=installHandle)
+    resultBox = toga.Box()
+    resultInput = toga.TextInput(readonly = True)
+
+    listBox.add(listLabel)
+    packageBox.add(packageLabel)
+    packageBox.add(packageInput)
+    submitBox.add(install)
+    resultBox.add(resultInput)
+    box.add(listBox)
+    box.add(packageBox)
+    box.add(submitBox)
+    box.add(resultBox)
+
+    box.style.update(direction=COLUMN, padding_top=10)
+    listBox.style.update(direction=ROW, padding=5)
+    packageBox.style.update(direction=ROW, padding=5)
+    submitBox.style.update(direction=ROW, padding=5)
+    return box
+
+def main():
+    return toga.App('Yet Another Package Manager', 'org.YAPI.yapi', startup=build)
+
 if os.path.exists(packages_binary_file_store):
     cacheOpen()
 else:
     cacheCreate()
 
-try:
-    class packageScreen(GridLayout):
-        def __init__(self, **kwargs):
-            super(packageScreen, self).__init__(**kwargs)
-            self.packages = ""
-            for package_counter in packages:
-                self.packages += "{:>2}) {} - {}\n".format(
-                    package_counter,
-                    packages[package_counter][0].capitalize(),
-                    packages[package_counter][1])
-
-            self.cols = 2
-            self.packageList = Label(text = self.packages)
-            self.packageInput = TextInput(multiline = False)
-            self.commandOutput = Label(text = '')
-            self.submit = Button(text = 'Submit')
-
-            self.add_widget(self.packageList)
-            self.add_widget(self.packageInput)
-            self.add_widget(self.commandOutput)
-            self.add_widget(self.submit)
-            self.submit.bind(on_press = self.submitCallback)
-
-        def submitCallback(instance, instance2):
-            packageText = instance.packageInput.text
-            try:
-                file_script = where_is_scripts + packageText + ".sh"
-                with open(file_script, "r") as file_script:
-                    bashCommand = ""
-                    for line in file_script.readlines():
-                        if line[0] != "#":
-                            bashCommand += line
-                    bashCommand = bashCommand.replace("\n", " ; ")
-                    output = str(subprocess.call(
-                        bashCommand, stderr=subprocess.STDOUT, shell=True))
-            except (OSError, IOError, KeyError) as e:
-                output = "Package not found. Try again."
-            instance.commandOutput.text = output
-
-    class YAPIApp(App):
-        def build(self):
-            return packageScreen()
-except:
-    pass
-
 if len(sys.argv) == 1:
+    print("GUI being developed.")
     if __name__ == '__main__':
-        try:
-            YAPIApp().run()
-        except:
-            print("Kivy not installed. Please install or use arguments")
+        main().main_loop()
 
 elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):

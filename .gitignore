@@ -1,2 +1,3 @@
 # Ignore bin file
 *.bin
+__pycache__
