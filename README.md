@@ -79,6 +79,7 @@ An example of this format is [test.sh](scripts/test.sh):
 
 If you want to add one script you **need** to mantain this standard. This is because the packages list on yapi.py is generated with this information, taken directly from the scripts.
 
+
 ****
 
 ## How To Contribute
