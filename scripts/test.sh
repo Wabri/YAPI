@@ -1,2 +1,2 @@
-# Description of package - https://github.com/Wabri/YAPI
+# Description of package - https://github.com/YetAnotherPackageInstaller/YAPI
 echo "Hello world!"
