@@ -6,10 +6,13 @@ import pickle                 #Serialization and Deserialization of .bin files
 import subprocess             #Run Bash Commands
 import sys                    #Make System Calls
 import time                   #Time Library
-import toga                   #GUI Library
-from toga.style.pack import * #GUI Components
-import cache_manager
-import script_runner
+try:
+    import toga                   #GUI Library
+    from toga.style.pack import * #GUI Components
+except:
+    pass
+import cache_manager          #Cache Manager
+import script_runner          #Script Runner
 
 # File Locations
 where_is_scripts = "scripts/"
@@ -161,7 +164,7 @@ def print_commands_allowed():
         else:
             print("\t - {} \n\t\t python yapi.py {}".format(
                 options[option][1], option))
-            
+
 def argumentError(arg):
     """Argument error."""
     print("The argument {} isn't allowed,".format(arg.upper()))
