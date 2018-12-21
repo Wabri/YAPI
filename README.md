@@ -44,7 +44,7 @@ Current Packages Supported:
 
 To use YAPI you need to clone this repository:
 
-    git clone https://github.com/Wabri/YAPI.git`
+    git clone https://github.com/Wabri/YAPI.git
 
 Then run the yapi.py python script:
 
