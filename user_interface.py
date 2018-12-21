@@ -12,7 +12,8 @@ def build(app):
     def installHandle(widget):
         import script_runner
         packageToInstall = packageInput.value
-        resultInput.value = script_runner.runScript(where_is_scripts + packageToInstall + ".sh")
+        resultInput.value = script_runner.runScript(
+            where_is_scripts + packageToInstall + ".sh")
 
     packages = cache_manager.get_packages(
         where_is_scripts, "test.sh", "updateYapiScripts.sh")
@@ -44,7 +45,8 @@ def build(app):
     return box
 
 def start():
-    return toga.App('Yet Another Package Manager', 'org.YAPI.yapi', startup=build).main_loop()
+    return toga.App('Yet Another Package Manager',
+                    'org.YAPI.yapi', startup=build).main_loop()
 
 def main():
     start().main_loop()
