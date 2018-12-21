@@ -8,7 +8,6 @@ def load_packages_from_file(binary_file):
             len(packages_loaded), binary_file))
     return packages_loaded
 
-
 def get_package_info(info):
     """Get package description and url from info."""
     description = ""
@@ -31,7 +30,6 @@ def get_package_info(info):
         url = "no url"
     del precedent_character, get_url
     return description[:-2], url
-
 
 def load_packages_from_directory(directory, *ignore_file):
     """Load packages from scripts."""
@@ -63,7 +61,6 @@ def load_packages_from_directory(directory, *ignore_file):
     os.chdir("..")
     return packages_loaded
 
-
 def make_bin_from_packages(packages_list, file_name="packages.bin"):
     """Create binary file from list."""
     import pickle
@@ -71,7 +68,6 @@ def make_bin_from_packages(packages_list, file_name="packages.bin"):
         pickle.dump(packages_list, file, protocol=0)
         print("[LOG] {} Packages store into {}".format(
             len(packages_list), file_name))
-
 
 def get_packages(directory, *test):
     """Get packages."""
@@ -87,3 +83,15 @@ def get_packages(directory, *test):
         else:
             print("[LOG] {} directory not found".format(directory))
     return {}
+
+def delete_cache(directory):
+    """Delete Packages"""
+    try:
+        import os
+        from yapi import where_is_scripts
+        cache_file = yapi.where_is_scripts.strip("/") + ".bin"
+        os.chdir(directory)
+        os.remove(cache_file)
+        return True
+    except:
+        pass

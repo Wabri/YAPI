@@ -1,11 +1,15 @@
 # YAPI - Yet Another Package Installer
 
-import cache_manager
-import script_runner
-import sys  # Make System Calls
+import os                     #Operating System Calls
+import sys                    #Make System Calls
+import time                   #Time Library
+import cache_manager          #Cache Manager
+import script_runner          #Script Runner
+import user_interface         #User Interface
 
 # File Locations
 where_is_scripts = "scripts/"
+packages_binary_file_store = "packages.bin"
 
 # Response and run Options
 options = {
@@ -15,7 +19,6 @@ options = {
     "cache": ["no", "Recreate the cache"],
     "help": ["no", "Information about YAPI"]
 }
-
 
 def print_commands_allowed():
     """Print commands."""
@@ -28,16 +31,13 @@ def print_commands_allowed():
             print("\t - {} \n\t\t python yapi.py {}".format(
                 options[option][1], option))
 
-
 def argumentError(arg):
     """Argument error."""
     print("The argument {} isn't allowed,".format(arg.upper()))
     print_commands_allowed()
 
-
 if len(sys.argv) == 1:
-    from user_interface import YAPIApp
-    YAPIApp().run()
+    result = user_interface.main()
 elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
         import console_interface
@@ -48,9 +48,10 @@ elif len(sys.argv) == 2:
         script_runner.runScript(where_is_scripts + "updateYapiScripts.sh")
     elif (sys.argv[1] == "cache"):
         try:
-            import os
             cache_file = where_is_scripts.strip("/") + ".bin"
-            os.remove(cache_file)
+            result = cache_manager.delete_cache(where_is_scripts)
+            if (result == False):
+                print("Previous cache not deleted")
             cache_manager.get_packages(
                 where_is_scripts, "test.sh", "updateYapiScripts.sh")
         except Exception:

@@ -1,66 +1,52 @@
-import cache_manager
-import subprocess
 try:
-    import kivy  # GUI Library
-    from kivy.app import App
-    from kivy.uix.button import Button
-    from kivy.uix.gridlayout import GridLayout
-    from kivy.uix.label import Label
-    from kivy.uix.textinput import TextInput
-    kivy.require('1.10.1')
+    import cache_manager          #Cache Manager
+    import script_runner          #Script Runner
+    import toga                   #GUI Library
+    from toga.style.pack import * #GUI Components
 except ImportError:
     pass
 
 where_is_scripts = "scripts/"
 
+def build(app):
+    def installHandle(widget):
+        import script_runner
+        packageToInstall = packageInput.value
+        resultInput.value = script_runner.runScript(
+            where_is_scripts + packageToInstall + ".sh")
 
-class packageScreen(GridLayout):
-    """Package screen."""
+    packages = cache_manager.get_packages(
+        where_is_scripts, "test.sh", "updateYapiScripts.sh")
+    box = toga.Box()
+    listBox = toga.Box()
+    listLabel = toga.Label('Packages Available: ')
+    packageBox = toga.Box()
+    packageLabel = toga.Label('Package To Install:')
+    packageInput = toga.TextInput()
+    submitBox = toga.Box()
+    install = toga.Button('Install Package', on_press=installHandle)
+    resultBox = toga.Box()
+    resultInput = toga.TextInput(readonly = True)
 
-    def __init__(self, **kwargs):
-        """Constructor."""
-        super(packageScreen, self).__init__(**kwargs)
-        packages = cache_manager.get_packages(where_is_scripts)
-        self.packages = ""
-        for package_counter in packages:
-            self.packages += "{:>2}) {} - {}\n".format(
-                package_counter,
-                packages[package_counter][0].capitalize(),
-                packages[package_counter][1])
+    listBox.add(listLabel)
+    packageBox.add(packageLabel)
+    packageBox.add(packageInput)
+    submitBox.add(install)
+    resultBox.add(resultInput)
+    box.add(listBox)
+    box.add(packageBox)
+    box.add(submitBox)
+    box.add(resultBox)
 
-        self.cols = 2
-        self.packageList = Label(text=self.packages)
-        self.packageInput = TextInput(multiline=False)
-        self.commandOutput = Label(text='')
-        self.submit = Button(text='Submit')
+    box.style.update(direction=COLUMN, padding_top=10)
+    listBox.style.update(direction=ROW, padding=5)
+    packageBox.style.update(direction=ROW, padding=5)
+    submitBox.style.update(direction=ROW, padding=5)
+    return box
 
-        self.add_widget(self.packageList)
-        self.add_widget(self.packageInput)
-        self.add_widget(self.commandOutput)
-        self.add_widget(self.submit)
-        self.submit.bind(on_press=self.submitCallback)
+def start():
+    return toga.App('Yet Another Package Manager',
+                    'org.YAPI.yapi', startup=build).main_loop()
 
-    def submitCallback(instance, instance2):
-        """Output."""
-        packageText = instance.packageInput.text
-        try:
-            file_script = where_is_scripts + packageText + ".sh"
-            with open(file_script, "r") as file_script:
-                bashCommand = ""
-                for line in file_script.readlines():
-                    if line[0] != "#":
-                        bashCommand += line
-                bashCommand = bashCommand.replace("\n", " ; ")
-                output = str(subprocess.call(
-                    bashCommand, stderr=subprocess.STDOUT, shell=True))
-        except (OSError, IOError, KeyError):
-            output = "Package not found. Try again."
-        instance.commandOutput.text = output
-
-
-class YAPIApp(App):
-    """Class YAPIApp."""
-
-    def build(self):
-        """Constructor."""
-        return packageScreen()
+def main():
+    start().main_loop()
