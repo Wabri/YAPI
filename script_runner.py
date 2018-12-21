@@ -9,7 +9,8 @@ def runScript(path_to_file):
                 if line[0] != "#":
                     bashCommand += line
             bashCommand = bashCommand.replace("\n", " ; ")
-            subprocess.call(
+            output = subprocess.call(
                 bashCommand, stderr=subprocess.STDOUT, shell=True)
+            return output
     except (OSError, IOError, KeyError):
-        print("Package not found. Try again.")
+        return "Package not found. Try again."
