@@ -16,6 +16,7 @@ import script_runner          #Script Runner
 
 # File Locations
 where_is_scripts = "scripts/"
+packages_binary_file_store = "packages.bin"
 
 # Response and run Options
 options = {
