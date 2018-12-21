@@ -86,8 +86,7 @@ def main():
     return toga.App('Yet Another Package Manager', 'org.YAPI.yapi', startup=build)
 
 if len(sys.argv) == 1:
-    if __name__ = '__main__':
-        main().main_loop()
+    main().main_loop()
 elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
         import console_interface
