@@ -1,18 +1,11 @@
 # YAPI - Yet Another Package Installer
 
-import glob                   #UNIX Pathname Expansion
 import os                     #Operating System Calls
-import pickle                 #Serialization and Deserialization of .bin files
-import subprocess             #Run Bash Commands
 import sys                    #Make System Calls
 import time                   #Time Library
-try:
-    import toga                   #GUI Library
-    from toga.style.pack import * #GUI Components
-except:
-    pass
 import cache_manager          #Cache Manager
 import script_runner          #Script Runner
+import user_interface         #User Interface
 
 # File Locations
 where_is_scripts = "scripts/"
@@ -43,50 +36,8 @@ def argumentError(arg):
     print("The argument {} isn't allowed,".format(arg.upper()))
     print_commands_allowed()
 
-def build(app):
-    def installHandle(widget):
-        import script_runner
-        packageToInstall = packageInput.value
-        resultInput.value = script_runner.runScript(where_is_scripts + packageToInstall + ".sh")
-
-    packageString = ""
-    for package_counter in packages:
-        packageString += "{:>2}) {} - {}".format(
-            package_counter,
-            packages[package_counter][0].capitalize(),
-            packages[package_counter][1])
-    box = toga.Box()
-    listBox = toga.Box()
-    listLabel = toga.Label('Packages Available: ' + packageString)
-    packageBox = toga.Box()
-    packageLabel = toga.Label('Package To Install:', style=Pack(text_align=RIGHT))
-    packageInput = toga.TextInput()
-    submitBox = toga.Box()
-    install = toga.Button('Install Package', on_press=installHandle)
-    resultBox = toga.Box()
-    resultInput = toga.TextInput(readonly = True)
-
-    listBox.add(listLabel)
-    packageBox.add(packageLabel)
-    packageBox.add(packageInput)
-    submitBox.add(install)
-    resultBox.add(resultInput)
-    box.add(listBox)
-    box.add(packageBox)
-    box.add(submitBox)
-    box.add(resultBox)
-
-    box.style.update(direction=COLUMN, padding_top=10)
-    listBox.style.update(direction=ROW, padding=5)
-    packageBox.style.update(direction=ROW, padding=5)
-    submitBox.style.update(direction=ROW, padding=5)
-    return box
-
-def main():
-    return toga.App('Yet Another Package Manager', 'org.YAPI.yapi', startup=build)
-
 if len(sys.argv) == 1:
-    main().main_loop()
+    result = user_interface.main()
 elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
         import console_interface
@@ -97,9 +48,10 @@ elif len(sys.argv) == 2:
         script_runner.runScript(where_is_scripts + "updateYapiScripts.sh")
     elif (sys.argv[1] == "cache"):
         try:
-            import os
             cache_file = where_is_scripts.strip("/") + ".bin"
-            os.remove(cache_file)
+            result = cache_manager.delete_cache(where_is_scripts)
+            if (result == False):
+                print("Previous cache not deleted")
             cache_manager.get_packages(
                 where_is_scripts, "test.sh", "updateYapiScripts.sh")
         except Exception:
