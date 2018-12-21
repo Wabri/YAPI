@@ -9,8 +9,8 @@ matrix:
       dist: xenial
     - python: 3.6
       dist: trusty
-    - python: 3.3
+    - python: 3.5
       dist: trusty
-    - python: 3.2
+    - python: 3.4
       dist: trusty
 script: python yapi.py install test

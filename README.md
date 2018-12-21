@@ -1,6 +1,6 @@
 # YAPI - Yet Another Package Installer
 
-YAPI is a simple package installer made in python for version 3. It's free, open-source, and works on Debian distributions (some scripts even in MacOS). The project is currently in an early stage of development.
+YAPI is a simple package installer made in python for version 3.4 and above. It's free, open-source, and works on Debian distributions (some scripts even in MacOS). The project is currently in an early stage of development.
 
 ****
 
