@@ -1,14 +1,17 @@
 # YAPI - Yet Another Package Installer
 
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source-150x25.png?v=103)](https://github.com/YetAnotherPackageInstaller/YAPI)
+
 YAPI is a simple package installer made in python for version 3.4 and above. It's free, open-source, and works on Debian distributions (some scripts even in MacOS). The project is currently in an early stage of development.
 
 ****
 
 ## Badges
 
-| Build status | LICENCE |
+| Build status | LICENSE |
 |----------|---------------|
-| [![Build Status](https://travis-ci.org/YetAnotherPackageInstaller/YAPI.svg?branch=master)](https://travis-ci.org/YetAnotherPackageInstaller/YAPI) | [![license](https://img.shields.io/badge/LICENCE-GPL--3.0-green.svg)](LICENSE) | |
+| [![Build Status](https://travis-ci.org/YetAnotherPackageInstaller/YAPI.svg?branch=master)](https://travis-ci.org/YetAnotherPackageInstaller/YAPI) | [![GPL Licence](https://badges.frapsoft.com/os/gpl/gpl.png?v=103)](LICENSE)
+ | |
 
 ****
 
