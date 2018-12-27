@@ -4,3 +4,5 @@ wget -O eclipseInst.tar.gz ftp.fau.de/eclipse/oomph/products/eclipse-inst-linux6
 tar zxvf eclipseInst.tar.gz
 sudo rm -r eclipseInst.tar.gz
 ln -s ~/eclipse-installer/eclipse-inst /usr/local/bin/eclipse-inst
+cd ~/
+cp YAPI/desktop_entries/eclipse.desktop .local/share/applications/eclipse.desktop
