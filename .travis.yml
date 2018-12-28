@@ -466,3 +466,5 @@ matrix:
       env:
         - PACKAGE=virtualbox
 script: python yapi.py install $PACKAGE
+notifications:
+    slack: yapiworkspace:Rh3wlsbST5hm2JtSi3l3BpZO
