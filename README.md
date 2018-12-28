@@ -63,6 +63,26 @@ Or use the short method with the name of the package you want to install:
 
     ./yapi.sh install <package_name>
 
+#### GUI Install
+
+To install toga for the gui, you need to install from source.
+
+    git clone https://github.com/pybee/toga.git
+    cd toga
+    pip install -e src/core
+    pip install -e src/dummy
+
+The next line depends on the operating system in use. For windows, the command is:
+
+    pip install -e src/winforms
+
+The command to install on MacOs is:
+
+    pip install -e src/cocoa
+
+The command to install on Linux is:
+
+    pip install -e src/gtk
 
 ****
 
