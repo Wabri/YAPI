@@ -49,13 +49,13 @@ To install YAPI you can use wget:
 
     wget https://raw.githubusercontent.com/YetAnotherPackageInstaller/YAPI/install.sh -O - | sudo bash -
 
-This script clone the repository, delete all the useless file and create a softlink to yapi.sh to run yapi everywhere.
+This script clones the repository, delete all the useless files and create a softlink to yapi.sh to run yapi everywhere on the system.
 
 ****
 
 ## Usage
 
-Then run the yapi.py python script:
+To use YAPI, run the yapi.sh shell script:
 
     ./yapi.sh
 
