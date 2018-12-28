@@ -1,7 +1,7 @@
 
 
 def run(packages):
-    """Console installer."""
+    """Run the console installer ."""
     import script_runner
 
     yes_answer = ("Y", "Yes", "y", "yes")
