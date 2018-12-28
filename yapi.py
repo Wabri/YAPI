@@ -52,7 +52,6 @@ elif len(sys.argv) == 2:
         script_runner.runScript(where_is_scripts + "updateYapiScripts.sh")
     elif (sys.argv[1] == "cache"):
         try:
-            cache_file = where_is_scripts.strip("/") + ".bin"
             result = cache_manager.delete_cache(where_is_scripts)
             if not result:
                 print("Previous cache not deleted")
