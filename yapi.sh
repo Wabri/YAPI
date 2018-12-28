@@ -1,1 +1,2 @@
-python3 yapi.py $1 $2
+cd ~/YAPI
+python3 ~/YAPI/yapi.py $1 $2

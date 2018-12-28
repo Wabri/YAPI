@@ -46,40 +46,23 @@ Current Packages Supported:
 
 ## Install
 
-#### YAPI Install
+To install YAPI you can use wget:
 
-To use YAPI you need to clone this repository:
+    wget https://raw.githubusercontent.com/YetAnotherPackageInstaller/YAPI/install.sh -O - | sudo bash -
 
-    git clone https://github.com/Wabri/YAPI.git
+This script clones the repository, delete all the useless files and create a softlink to yapi.sh to run yapi everywhere on the system.
 
-Then run the yapi.py python script:
+****
+
+## Usage
+
+To use YAPI, run the yapi.sh shell script:
 
     ./yapi.sh
 
 Or use the short method with the name of the package you want to install:
 
     ./yapi.sh install <package_name>
-
-#### GUI Install
-
-To install toga for the gui, you need to install from source.
-
-    git clone https://github.com/pybee/toga.git
-    cd toga
-    pip install -e src/core
-    pip install -e src/dummy
-
-The next line depends on the operating system in use. For windows, the command is:
-
-    pip install -e src/winforms
-
-The command to install on MacOs is:
-
-    pip install -e src/cocoa
-
-The command to install on Linux is:
-
-    pip install -e src/gtk
 
 ****
 
