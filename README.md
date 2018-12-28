@@ -37,6 +37,7 @@ Current Packages Supported:
 - Dropbox - Dropbox cloud storage - https://www.dropbox.com/
 - Eclipseinstaller - Eclipse IDE installer - https://www.eclipse.org/
 - Atom - Atom Text Editor - https://atom.io/
+- Slack - Slack can help your team work together and get things done - https://slack.com/
 - Nodejs - NodeJs JavaScript runtime - https://github.com/nodesource/distributions#installation-instructions
 - Javajdk11 - Java jdk 11 with path setup - https://www.oracle.com/technetwork/java/javase/downloads/index.html
 <!--readme_update end -->
