@@ -3,30 +3,6 @@ sudo: required
 language: python
 install:
   - pip install -r requirements.txt
-env:
-  - PACKAGE=atom
-  - PACKAGE=discord
-  - PACKAGE=dropbox
-  - PACKAGE=eclipseInstaller
-  - PACKAGE=gitkraken
-  - PACKAGE=googleChrome
-  - PACKAGE=ideaCom
-  - PACKAGE=javaJdk11
-  - PACKAGE=light
-  - PACKAGE=mailspring
-  - PACKAGE=nodeJS
-  - PACKAGE=nvidiaDriver
-  - PACKAGE=oh-my-zsh
-  - PACKAGE=playerctl
-  - PACKAGE=pycharmCom
-  - PACKAGE=rambox
-  - PACKAGE=skype
-  - PACKAGE=slack
-  - PACKAGE=spotify
-  - PACKAGE=steam
-  - PACKAGE=test
-  - PACKAGE=updateYapiScripts
-  - PACKAGE=virtualbox
 matrix:
   include:
     - python: 3.7
