@@ -11,7 +11,6 @@ YAPI is a simple package installer made in python for version 3.4 and above. It'
 | Build status | LICENSE |
 |----------|---------------|
 | [![Build Status](https://travis-ci.org/YetAnotherPackageInstaller/YAPI.svg?branch=master)](https://travis-ci.org/YetAnotherPackageInstaller/YAPI) | [![GPL Licence](https://badges.frapsoft.com/os/gpl/gpl.png?v=103)](LICENSE)
- | |
 
 ****
 
