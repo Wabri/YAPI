@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=13.0
+Type=Application
+Terminal=false
+Icon=~/.intellij-13/bin/idea.png
+Name=IntelliJ
+Exec=~/.intellij-13/bin/idea.sh
+Name=IntelliJ
+Icon=~/.intellij-13/bin/idea.png
