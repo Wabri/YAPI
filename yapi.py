@@ -1,11 +1,9 @@
 # YAPI - Yet Another Package Installer
 
-import os                     #Operating System Calls
-import sys                    #Make System Calls
-import time                   #Time Library
-import cache_manager          #Cache Manager
-import script_runner          #Script Runner
-import user_interface         #User Interface
+import cache_manager  # Cache Manager
+import script_runner  # Script Runner
+import sys  # Make System Calls
+import user_interface  # User Interface
 
 # File Locations
 where_is_scripts = "scripts/"
@@ -20,8 +18,9 @@ options = {
     "help": ["no", "Information about YAPI"]
 }
 
+
 def print_commands_allowed():
-    """Print commands."""
+    """Print on console all the commands allowed to run with YAPI."""
     print("You can choose from this arguments: ")
     for option in options:
         if options[option][0] != "no":
@@ -31,8 +30,13 @@ def print_commands_allowed():
             print("\t - {} \n\t\t python yapi.py {}".format(
                 options[option][1], option))
 
+
 def argumentError(arg):
-    """Argument error."""
+    """Print on console a message of Argument error.
+
+    Arguments:
+    arg -- this is the argument to print that is not allowed
+    """
     print("The argument {} isn't allowed,".format(arg.upper()))
     print_commands_allowed()
 
@@ -48,9 +52,8 @@ elif len(sys.argv) == 2:
         script_runner.runScript(where_is_scripts + "updateYapiScripts.sh")
     elif (sys.argv[1] == "cache"):
         try:
-            cache_file = where_is_scripts.strip("/") + ".bin"
             result = cache_manager.delete_cache(where_is_scripts)
-            if (result == False):
+            if not result:
                 print("Previous cache not deleted")
             cache_manager.get_packages(
                 where_is_scripts, "test.sh", "updateYapiScripts.sh")

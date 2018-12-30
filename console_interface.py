@@ -1,7 +1,11 @@
 
 
 def run(packages):
-    """Console installer."""
+    """Run the console installer.
+
+    Arguments:
+    packages -- list of packages to print
+    """
     import script_runner
 
     yes_answer = ("Y", "Yes", "y", "yes")

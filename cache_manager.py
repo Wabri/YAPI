@@ -1,6 +1,10 @@
 
 def load_packages_from_file(binary_file):
-    """Load packages list from binary."""
+    """Load packages list from cache.
+
+    Arguments:
+    binary_file -- cache file of packages
+    """
     import pickle
     with open(binary_file, "rb") as binary_packages:
         packages_loaded = pickle.load(binary_packages)
@@ -8,8 +12,13 @@ def load_packages_from_file(binary_file):
             len(packages_loaded), binary_file))
     return packages_loaded
 
+
 def get_package_info(info):
-    """Get package description and url from info."""
+    """Get package description and url from info.
+
+    Arguments:
+    info -- The line to parse
+    """
     description = ""
     url = ""
     info = info.strip("\n").strip("# ")
@@ -31,8 +40,14 @@ def get_package_info(info):
     del precedent_character, get_url
     return description[:-2], url
 
+
 def load_packages_from_directory(directory, *ignore_file):
-    """Load packages from scripts."""
+    """Load packages from scripts.
+
+    Arguments:
+    directory -- load cache of this directory
+    *ignore_file -- string name of files to ignore
+    """
     import glob
     import os
     packages_loaded = dict()
@@ -61,16 +76,28 @@ def load_packages_from_directory(directory, *ignore_file):
     os.chdir("..")
     return packages_loaded
 
+
 def make_bin_from_packages(packages_list, file_name="packages.bin"):
-    """Create binary file from list."""
+    """Create binary file from list.
+
+    Arguments:
+    packages_list -- dictionary of packages to cache
+    *ignore_file -- string name of files to ignore
+    """
     import pickle
     with open(file_name, "wb") as file:
         pickle.dump(packages_list, file, protocol=0)
         print("[LOG] {} Packages store into {}".format(
             len(packages_list), file_name))
 
+
 def get_packages(directory, *test):
-    """Get packages."""
+    """Get packages.
+
+    Arguments:
+    directory -- directory where packages are
+    *test -- specification of file using in test
+    """
     import os
     from_file = directory.strip("/") + ".bin"
     if os.path.exists(from_file):
@@ -84,14 +111,18 @@ def get_packages(directory, *test):
             print("[LOG] {} directory not found".format(directory))
     return {}
 
+
 def delete_cache(directory):
-    """Delete Packages"""
+    """Delete binary packages cache.
+
+    Arguments:
+    directory -- delete the cache of this directory
+    """
+    import os
     try:
-        import os
-        from yapi import where_is_scripts
-        cache_file = yapi.where_is_scripts.strip("/") + ".bin"
+        cache_file = directory.strip("/") + ".bin"
         os.chdir(directory)
         os.remove(cache_file)
         return True
-    except:
-        pass
+    except Exception:
+        return False
