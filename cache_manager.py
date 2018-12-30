@@ -46,7 +46,7 @@ def load_packages_from_directory(directory, *ignore_file):
 
     Arguments:
     directory -- load cache of this directory
-    *ignore_file -- string name of file to ignore
+    *ignore_file -- string name of files to ignore
     """
     import glob
     import os
@@ -82,7 +82,7 @@ def make_bin_from_packages(packages_list, file_name="packages.bin"):
 
     Arguments:
     packages_list -- dictionary of packages to cache
-    *ignore_file -- string name of file to ignore
+    *ignore_file -- string name of files to ignore
     """
     import pickle
     with open(file_name, "wb") as file:
