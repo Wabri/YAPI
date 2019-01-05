@@ -1,15 +1,21 @@
 from cache_manager import get_packages
+from configparser import ConfigParser
+from configparser import ExtendedInterpolation
 import glob
-import os
+from os import getlogin
 import pickle
 
-packages = get_packages("scripts/", "test.sh", "updateYapiScripts.sh")
+config = ConfigParser(interpolation=ExtendedInterpolation())
+config.read("config.ini")
+packages = get_packages(
+    "scripts/", str(config["PACKAGES"]["ignore"]).split(sep=", "))
 
-readme_file = "README.md"
+readme_path = config["COMMON"]["readme_path"].replace(
+    "~", "/home/" + getlogin())
 start_update = True
 continue_read = True
 readme_updated = list()
-with open(readme_file, "r") as readme:
+with open(readme_path, "r") as readme:
     for line in readme.readlines():
         if not continue_read:
             if start_update:
@@ -28,7 +34,7 @@ with open(readme_file, "r") as readme:
             readme_updated.append(line)
 del start_update, continue_read
 
-with open(readme_file, "w") as readme:
+with open(readme_path, "w") as readme:
     for line in readme_updated:
         print(line.strip("\n"), file=readme)
-del readme_file, readme_updated
+del readme_path, readme_updated
