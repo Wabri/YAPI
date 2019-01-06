@@ -41,7 +41,7 @@ def get_package_info(info):
     return description[:-2], url
 
 
-def load_packages_from_directory(directory, *ignore_file):
+def load_packages_from_directory(directory, ignore_file=[]):
     """Load packages from scripts.
 
     Arguments:
@@ -91,7 +91,7 @@ def make_bin_from_packages(packages_list, file_name="packages.bin"):
             len(packages_list), file_name))
 
 
-def get_packages(directory, *test):
+def get_packages(directory, ignore_file=[]):
     """Get packages.
 
     Arguments:
@@ -104,7 +104,7 @@ def get_packages(directory, *test):
         return load_packages_from_file(from_file)
     else:
         if os.path.exists(directory):
-            packages = load_packages_from_directory(directory, *test)
+            packages = load_packages_from_directory(directory, ignore_file)
             make_bin_from_packages(packages, from_file)
             return packages
         else:
