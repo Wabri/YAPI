@@ -5,7 +5,18 @@ def runScript(path_to_file):
     Arguments:
     path_to_file -- the path to the script to run
     """
+    from configparser import ConfigParser
+    from configparser import ExtendedInterpolation
+    from os import getlogin
     import subprocess
+    config = ConfigParser(interpolation=ExtendedInterpolation())
+    config.read("config.ini")
+    language_config_file = str(config["COMMON"]["language_dir"]).replace(
+        "~", "/home/" + getlogin()) + "/" + config["COMMON"]["language"] \
+        + ".ini"
+    del config
+    language_config = ConfigParser()
+    language_config.read(language_config_file)
     try:
         with open(path_to_file, "r") as file_script:
             bashCommand = ""
@@ -17,4 +28,4 @@ def runScript(path_to_file):
                 bashCommand, stderr=subprocess.STDOUT, shell=True)
             return output
     except (OSError, IOError, KeyError):
-        return "Package not found. Try again."
+        return language_config["SCRIPT-RUNNER"]["0_package_not_found_error"]
