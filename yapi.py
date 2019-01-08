@@ -38,6 +38,7 @@ def argumentError(arg):
           ["1_argument_not_allowed"].format(arg.upper()))
     print_commands_allowed()
 
+
 if len(sys.argv) == 1:
     result = user_interface.main()
 elif len(sys.argv) == 2:
@@ -47,7 +48,9 @@ elif len(sys.argv) == 2:
             packages_path, str(config["PACKAGES"]["ignore"]).split(sep=", "))
         console_interface.run(packages)
     elif (sys.argv[1] == "update"):
-        script_runner.runScript(packages_path + "updateYapiScripts.sh")
+        script_runner.runScript(
+            packages_path + "updateYapiScripts" +
+            config["COMMON"]["file_extension"])
     elif (sys.argv[1] == "cache"):
         try:
             result = cache_manager.delete_cache(packages_path)
@@ -64,4 +67,5 @@ elif len(sys.argv) == 2:
         argumentError(sys.argv[1])
 elif len(sys.argv) == 3:
     if sys.argv[1] == "install":
-        script_runner.runScript(packages_path + sys.argv[2] + ".sh")
+        script_runner.runScript(
+            packages_path + sys.argv[2] + config["COMMON"]["file_extension"])
