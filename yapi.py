@@ -1,13 +1,18 @@
 # YAPI - Yet Another Package Installer
 
-import cache_manager  # Cache Manager
+import cache_manager
+from configparser import ConfigParser
+from configparser import ExtendedInterpolation
+from os import getlogin
 import script_runner  # Script Runner
 import sys  # Make System Calls
 import user_interface  # User Interface
 
-# File Locations
-where_is_scripts = "scripts/"
-packages_binary_file_store = "packages.bin"
+config = ConfigParser(interpolation=ExtendedInterpolation())
+config.read("config.ini")
+
+packages_path = config["PACKAGES"]["packages_path"].replace(
+    "~", "/home/" + getlogin())
 
 # Response and run Options
 options = {
@@ -46,17 +51,18 @@ elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
         import console_interface
         packages = cache_manager.get_packages(
-            where_is_scripts, "test.sh", "updateYapiScripts.sh")
+            packages_path, str(config["PACKAGES"]["ignore"]).split(sep=", "))
         console_interface.run(packages)
     elif (sys.argv[1] == "update"):
-        script_runner.runScript(where_is_scripts + "updateYapiScripts.sh")
+        script_runner.runScript(packages_path + "updateYapiScripts.sh")
     elif (sys.argv[1] == "cache"):
         try:
-            result = cache_manager.delete_cache(where_is_scripts)
+            result = cache_manager.delete_cache(packages_path)
             if not result:
                 print("Previous cache not deleted")
             cache_manager.get_packages(
-                where_is_scripts, "test.sh", "updateYapiScripts.sh")
+                packages_path,
+                str(config["PACKAGES"]["ignore"]).split(sep=", "))
         except Exception:
             print("No cache file found")
     elif (sys.argv[1] == "help"):
@@ -65,4 +71,4 @@ elif len(sys.argv) == 2:
         argumentError(sys.argv[1])
 elif len(sys.argv) == 3:
     if sys.argv[1] == "install":
-        script_runner.runScript(where_is_scripts + sys.argv[2] + ".sh")
+        script_runner.runScript(packages_path + sys.argv[2] + ".sh")
