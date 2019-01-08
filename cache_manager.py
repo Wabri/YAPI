@@ -99,7 +99,7 @@ def get_packages(directory, ignore_file=[]):
     *test -- specification of file using in test
     """
     import os
-    from_file = directory.strip("/") + ".bin"
+    from_file = directory.split(sep="/")[-1].strip("/") + ".bin"
     if os.path.exists(from_file):
         return load_packages_from_file(from_file)
     else:
@@ -120,9 +120,9 @@ def delete_cache(directory):
     """
     import os
     try:
-        cache_file = directory.strip("/") + ".bin"
-        os.chdir(directory)
-        os.remove(cache_file)
+        cache_file = directory.split(sep="/")[-1].strip("/")
+        os.chdir(directory.rstrip("/" + cache_file))
+        os.remove(cache_file + ".bin")
         return True
     except Exception:
         return False
