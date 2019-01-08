@@ -37,14 +37,6 @@ matrix:
       dist: trusty
       env:
         - PACKAGE=updateYapiScripts
-    - python: 2.7
-      dist: trusty
-      env:
-        - PACKAGE=test
-    - python: 2.7
-      dist: trusty
-      env:
-        - PACKAGE=updateYapiScripts
 
 script: python yapi.py install $PACKAGE
 
