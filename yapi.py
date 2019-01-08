@@ -17,13 +17,11 @@ packages_path = config["PACKAGES"]["packages_path"].replace(
 
 language_pack = get_language_pack()
 
-options = language_pack["COMMANDS"]
-
-help = language_pack["HELP"]
-
 
 def print_commands_allowed():
     """Print on console all the commands allowed to run with YAPI."""
+    help = language_pack["HELP"]
+    options = language_pack["COMMANDS"]
     print(language_pack["COMMON"]["2_argument_choose"])
     for option in options:
         print("\t - {} \n\t\t python3 yapi.py {} {} "
