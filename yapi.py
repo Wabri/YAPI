@@ -3,7 +3,7 @@
 import cache_manager
 from configparser import ConfigParser
 from configparser import ExtendedInterpolation
-from languages import get_language_pack
+from language_pack_manager import get_language_pack
 from os import getlogin
 import script_runner  # Script Runner
 import sys  # Make System Calls
