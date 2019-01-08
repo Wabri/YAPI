@@ -55,7 +55,7 @@ elif len(sys.argv) == 2:
         try:
             result = cache_manager.delete_cache(packages_path)
             if not result:
-                print("Previous cache not deleted")
+                print(language_pack["COMMON"]["0_cache_not_found"])
             cache_manager.get_packages(
                 packages_path,
                 str(config["PACKAGES"]["ignore"]).split(sep=", "))
