@@ -3,6 +3,7 @@
 import cache_manager
 from configparser import ConfigParser
 from configparser import ExtendedInterpolation
+from languages import get_language_pack
 from os import getlogin
 import script_runner  # Script Runner
 import sys  # Make System Calls
@@ -14,26 +15,17 @@ config.read("config.ini")
 packages_path = config["PACKAGES"]["packages_path"].replace(
     "~", "/home/" + getlogin())
 
-# Response and run Options
-options = {
-    "install": ["<package_to_install>", "Install one of the packages"],
-    "console": ["no", "Run Yapi with the terminal question installer"],
-    "update": ["no", "Pull the newest YAPI version from github"],
-    "cache": ["no", "Recreate the cache"],
-    "help": ["no", "Information about YAPI"]
-}
+language_pack = get_language_pack()
+
+options = language_pack["COMMANDS"]
 
 
 def print_commands_allowed():
     """Print on console all the commands allowed to run with YAPI."""
     print("You can choose from this arguments: ")
     for option in options:
-        if options[option][0] != "no":
-            print("\t - {} \n\t\t python yapi.py {} {}".format(
-                options[option][1], option, options[option][0]))
-        else:
-            print("\t - {} \n\t\t python yapi.py {}".format(
-                options[option][1], option))
+        print("\t - {} \n\t\t python yapi.py {} "
+              .format(options[option], option))
 
 
 def argumentError(arg):
