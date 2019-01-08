@@ -13,7 +13,7 @@ config = ConfigParser(interpolation=ExtendedInterpolation())
 config.read("config.ini")
 
 packages_path = config["PACKAGES"]["packages_path"].replace(
-    "~", "/home/" + getlogin()) + "/"
+    "~", "/home/" + getlogin())
 
 language_pack = get_language_pack()
 
@@ -51,7 +51,7 @@ elif len(sys.argv) == 2:
         console_interface.run(packages)
     elif (sys.argv[1] == "update"):
         script_runner.runScript(
-            packages_path + "updateYapiScripts" +
+            packages_path + "/updateYapiScripts" +
             config["COMMON"]["file_extension"])
     elif (sys.argv[1] == "cache"):
         try:
@@ -69,6 +69,8 @@ elif len(sys.argv) == 2:
         argumentError(sys.argv[1])
 elif len(sys.argv) == 3:
     if sys.argv[1] == "install":
-        print(packages_path + sys.argv[2] + config["COMMON"]["file_extension"])
+        print(packages_path + "/" + sys.argv[2] +
+              config["COMMON"]["file_extension"])
         script_runner.runScript(
-            packages_path + sys.argv[2] + config["COMMON"]["file_extension"])
+            packages_path + "/" + sys.argv[2] +
+            config["COMMON"]["file_extension"])
