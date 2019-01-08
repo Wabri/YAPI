@@ -22,7 +22,7 @@ options = language_pack["COMMANDS"]
 
 def print_commands_allowed():
     """Print on console all the commands allowed to run with YAPI."""
-    print("You can choose from this arguments: ")
+    print(language_pack["COMMON"]["2_argument_choose"])
     for option in options:
         print("\t - {} \n\t\t python yapi.py {} "
               .format(options[option], option))
@@ -34,7 +34,8 @@ def argumentError(arg):
     Arguments:
     arg -- this is the argument to print that is not allowed
     """
-    print("The argument {} isn't allowed,".format(arg.upper()))
+    print(language_pack["COMMON"]
+          ["1_argument_not_allowed"].format(arg.upper()))
     print_commands_allowed()
 
 if len(sys.argv) == 1:
@@ -56,7 +57,7 @@ elif len(sys.argv) == 2:
                 packages_path,
                 str(config["PACKAGES"]["ignore"]).split(sep=", "))
         except Exception:
-            print("No cache file found")
+            print(language_pack["COMMON"]["0_cache_not_found"])
     elif (sys.argv[1] == "help"):
         print_commands_allowed()
     else:
