@@ -70,7 +70,7 @@ def load_packages_from_directory(directory, ignore_file=[]):
                 package_name,
                 package_description,
                 package_url,
-                str(directory + file)
+                str(directory + "/" + file)
             ]
             counter_packages += 1
     os.chdir("..")

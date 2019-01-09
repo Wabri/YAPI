@@ -38,13 +38,13 @@ def run(packages):
                       .format(package_counter))
                 choose = -1
         package_to_install = choose
-        while choose not in right_answer:
+        while str(choose) not in right_answer:
             choose = input(str(language_pack["CONSOLE"]
                                ["4_confirmation_question"] + " ")
                            .format(packages[package_to_install][0]))
         if choose in yes_answer:
             print(language_pack["CONSOLE"]["5_installation_start"])
-            script_runner.runScript(packages[package_to_install][3])
+            print(script_runner.runScript(packages[package_to_install][3]))
         else:
             print(language_pack["CONSOLE"]["6_reject_installation"])
         choose = ""
