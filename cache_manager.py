@@ -48,12 +48,16 @@ def load_packages_from_directory(directory, ignore_file=[]):
     directory -- load cache of this directory
     *ignore_file -- string name of files to ignore
     """
+    from configparser import ConfigParser
+    from configparser import ExtendedInterpolation
     import glob
     import os
+    config = ConfigParser(interpolation=ExtendedInterpolation())
+    config.read("config.ini")
     packages_loaded = dict()
     os.chdir(directory)
     counter_packages = 1
-    for file in glob.glob("*.sh"):
+    for file in glob.glob("*" + config["COMMON"]["file_extension"]):
         package_name = file.split(".")[0]
         package_description = ""
         with open(file, "r") as open_file:
@@ -73,7 +77,7 @@ def load_packages_from_directory(directory, ignore_file=[]):
                 str(directory + file)
             ]
             counter_packages += 1
-    os.chdir("..")
+    os.chdir(config["COMMON"]["yapi_dir"])
     return packages_loaded
 
 
