@@ -2,49 +2,22 @@
 
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source-150x25.png?v=103)](https://github.com/YetAnotherPackageInstaller/YAPI)
 
-YAPI is a simple package installer made in python for version 3.4 and above. It's free, open-source, and works on Debian distributions (some scripts even in MacOS). The project is currently in an early stage of development.
 
-****
+[![Build Status](https://travis-ci.org/YetAnotherPackageInstaller/YAPI.svg?branch=master)](https://travis-ci.org/YetAnotherPackageInstaller/YAPI)
+[![Issues](https://img.shields.io/github/issues/YetAnotherPackageInstaller/YAPI.svg)](https://github.com/YetAnotherPackageInstaller/YAPI/issues)
+[![Stars](https://img.shields.io/github/stars/YetAnotherPackageInstaller/YAPI.svg)](https://github.com/YetAnotherPackageInstaller/YAPI/stargazers)
+[![Forks](https://img.shields.io/github/forks/YetAnotherPackageInstaller/YAPI.svg)](https://github.com/YetAnotherPackageInstaller/YAPI/network)
+[![GitHub contributors](https://img.shields.io/github/contributors/YetAnotherPackageInstaller/YAPI.svg?maxAge=2592000)]()
+<!-- [![Downloads](https://img.shields.io/github/downloads/YetAnotherPackageInstaller/YAPI/total.svg)](https://github.com/YetAnotherPackageInstaller/YAPI/releases) -->
 
-## Badges
+[![GitHub license](https://img.shields.io/github/license/YetAnotherPackageInstaller/YAPI.svg)](https://github.com/YetAnotherPackageInstaller/YAPI/blob/master/LICENSE)
 
-| Build status | LICENSE |
-|----------|---------------|
-| [![Build Status](https://travis-ci.org/YetAnotherPackageInstaller/YAPI.svg?branch=master)](https://travis-ci.org/YetAnotherPackageInstaller/YAPI) | [![GPL Licence](https://badges.frapsoft.com/os/gpl/gpl.png?v=103)](LICENSE)
 
-****
-
-## Features
-
-Current Packages Supported:
-<!--readme_update start -->
-- Playerctl - Playerctl command-line controller and library - https://github.com/acrisci/playerctl
-- Discord - Discord chat vocale e testuale - https://discordapp.com/
-- Mailspring - The best mail client - https://getmailspring.com/
-- Spotify - Spotify client music for all - https://www.spotify.com
-- Gitkraken - GitKraken Git Client and Glo Boards to build epic software - https://www.gitkraken.com/
-- Googlechrome - Google Chrome browser - https://www.google.it/chrome/
-- Rambox - Rambox workspace browser - https://rambox.pro
-- Pycharmcom - Pycharm Community edition - https://www.jetbrains.com/pycharm/
-- Skype - Skype for linux instant chat and VoIP - https://www.skype.com/
-- Nvidiadriver - NVIDIA driver support of Geforce 4xx and higher GPUs - https://wiki.debian.org/NvidiaGraphicsDrivers
-- Light - Light GNU/Linux application to control backlights - http://haikarainen.github.io/light
-- Oh-my-zsh - zsh + oh-my-zsh - https://ohmyz.sh/
-- Virtualbox - VirtualBox is a general-purpose full virtualizer for x86 hardware - https://www.virtualbox.org
-- Ideacom - IntelliJ IDEA Community edition - https://www.jetbrains.com/idea/
-- Steam - Steam ultimate entertainment platform - https://store.steampowered.com/about
-- Dropbox - Dropbox cloud storage - https://www.dropbox.com/
-- Eclipseinstaller - Eclipse IDE installer - https://www.eclipse.org/
-- Atom - Atom Text Editor - https://atom.io/
-- Slack - Slack can help your team work together and get things done - https://slack.com/
-- Nodejs - NodeJs JavaScript runtime - https://github.com/nodesource/distributions#installation-instructions
-- Javajdk11 - Java jdk 11 with path setup - https://www.oracle.com/technetwork/java/javase/downloads/index.html
-<!--readme_update end -->
+YAPI is a simple package installer made in python for version 3.x. It's free, open-source, and works on Debian distributions. The project is currently in an early stage of development.
 
 ****
 
 ## Install
-
 To install YAPI you can use wget:
 
     wget https://raw.githubusercontent.com/YetAnotherPackageInstaller/YAPI/install.sh -O - | sudo bash -
@@ -91,7 +64,7 @@ If you want to add one script you **need** to mantain this standard. This is bec
 
 ## How To Contribute
 
-Contributions are always welcome, either reporting issues/bugs or forking the repository and then issuing pull requests when you have completed some additional coding that you feel will be beneficial to the main project. If you are interested in contributing in a more dedicated capacity, then please contact me.
+Contributions are always welcome, either reporting issues/bugs or forking the repository and then issuing pull requests when you have completed some additional coding that you feel will be beneficial to the main project. If you are interested in contributing in a more dedicated capacity, then please contact us.
 
 ****
 
@@ -103,4 +76,4 @@ YAPI source code is released under the GNU General Public License v3.0. Please s
 
 ## Contributors:
 
-[Wabri](https://github.com/Wabri), [IanDuncanT](https://github.com/IanDuncanT)
+[![Wabri](https://avatars3.githubusercontent.com/u/12409541?s=50&v=4)](https://github.com/Wabri), [![IanDuncanT](https://avatars1.githubusercontent.com/u/39711921?s=50&v=4)](https://github.com/IanDuncanT)
