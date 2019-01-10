@@ -1,34 +1,31 @@
 # YAPI - Yet Another Package Installer
 
-import cache_manager  # Cache Manager
+import cache_manager
+from configparser import ConfigParser
+from configparser import ExtendedInterpolation
+from language_pack_manager import get_language_pack
+from os import getlogin
 import script_runner  # Script Runner
 import sys  # Make System Calls
 import user_interface  # User Interface
 
-# File Locations
-where_is_scripts = "scripts/"
-packages_binary_file_store = "packages.bin"
+config = ConfigParser(interpolation=ExtendedInterpolation())
+config.read("config.ini")
 
-# Response and run Options
-options = {
-    "install": ["<package_to_install>", "Install one of the packages"],
-    "console": ["no", "Run Yapi with the terminal question installer"],
-    "update": ["no", "Pull the newest YAPI version from github"],
-    "cache": ["no", "Recreate the cache"],
-    "help": ["no", "Information about YAPI"]
-}
+packages_path = config["PACKAGES"]["packages_path"].replace(
+    "~", "/home/" + getlogin())
+
+language_pack = get_language_pack()
 
 
 def print_commands_allowed():
     """Print on console all the commands allowed to run with YAPI."""
-    print("You can choose from this arguments: ")
+    help = language_pack["HELP"]
+    options = language_pack["COMMANDS"]
+    print(language_pack["COMMON"]["2_argument_choose"])
     for option in options:
-        if options[option][0] != "no":
-            print("\t - {} \n\t\t python yapi.py {} {}".format(
-                options[option][1], option, options[option][0]))
-        else:
-            print("\t - {} \n\t\t python yapi.py {}".format(
-                options[option][1], option))
+        print("\t - {} \n\t\t python3 yapi.py {} {} "
+              .format(help[option], option, options[option]))
 
 
 def argumentError(arg):
@@ -37,8 +34,10 @@ def argumentError(arg):
     Arguments:
     arg -- this is the argument to print that is not allowed
     """
-    print("The argument {} isn't allowed,".format(arg.upper()))
+    print(language_pack["COMMON"]
+          ["1_argument_not_allowed"].format(arg.upper()))
     print_commands_allowed()
+
 
 if len(sys.argv) == 1:
     result = user_interface.main()
@@ -46,23 +45,30 @@ elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
         import console_interface
         packages = cache_manager.get_packages(
-            where_is_scripts, "test.sh", "updateYapiScripts.sh")
+            packages_path, str(config["PACKAGES"]["ignore"]).split(sep=", "))
         console_interface.run(packages)
     elif (sys.argv[1] == "update"):
-        script_runner.runScript(where_is_scripts + "updateYapiScripts.sh")
+        script_runner.runScript(
+            packages_path + "/updateYapiScripts" +
+            config["COMMON"]["file_extension"])
     elif (sys.argv[1] == "cache"):
         try:
-            result = cache_manager.delete_cache(where_is_scripts)
+            result = cache_manager.delete_cache(packages_path)
             if not result:
-                print("Previous cache not deleted")
+                print(language_pack["COMMON"]["0_cache_not_found"])
             cache_manager.get_packages(
-                where_is_scripts, "test.sh", "updateYapiScripts.sh")
+                packages_path,
+                str(config["PACKAGES"]["ignore"]).split(sep=", "))
         except Exception:
-            print("No cache file found")
+            print(language_pack["COMMON"]["0_cache_not_found"])
     elif (sys.argv[1] == "help"):
         print_commands_allowed()
     else:
         argumentError(sys.argv[1])
 elif len(sys.argv) == 3:
     if sys.argv[1] == "install":
-        script_runner.runScript(where_is_scripts + sys.argv[2] + ".sh")
+        print(packages_path + "/" + sys.argv[2] +
+              config["COMMON"]["file_extension"])
+        script_runner.runScript(
+            packages_path + "/" + sys.argv[2] +
+            config["COMMON"]["file_extension"])

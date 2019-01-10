@@ -26,6 +26,6 @@ def runScript(path_to_file):
             bashCommand = bashCommand.replace("\n", " ; ")
             output = subprocess.call(
                 bashCommand, stderr=subprocess.STDOUT, shell=True)
-            return output
+            return "Package installed correctly"
     except (OSError, IOError, KeyError):
         return language_config["SCRIPT-RUNNER"]["0_package_not_found_error"]
