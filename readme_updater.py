@@ -12,12 +12,8 @@ packages_path = get_packages(
     config["PACKAGES"]["packages_path"],
     str(config["PACKAGES"]["ignore"]).split(sep=", "))
 
-print(config["PACKAGES"]["packages_path"])
-
 where_is_readme_packages = config["PACKAGES"]["packages_path"].replace(
     "~", "/home/" + getlogin()) + "/README.md"
-
-print(where_is_readme_packages)
 
 
 def packages_update(packages, readme_path):
