@@ -48,12 +48,10 @@ def load_packages_from_directory(directory, ignore_file=[]):
     directory -- load cache of this directory
     *ignore_file -- string name of files to ignore
     """
-    from configparser import ConfigParser
-    from configparser import ExtendedInterpolation
+    from config_extractor import get_configuration
     import glob
     import os
-    config = ConfigParser(interpolation=ExtendedInterpolation())
-    config.read("config.ini")
+    config = get_configuration()
     packages_loaded = dict()
     os.chdir(directory)
     counter_packages = 1

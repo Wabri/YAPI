@@ -1,12 +1,10 @@
 from cache_manager import get_packages
-from configparser import ConfigParser
-from configparser import ExtendedInterpolation
+from config_extractor import get_configuration
 import glob
 from os import getlogin
 import pickle
 
-config = ConfigParser(interpolation=ExtendedInterpolation())
-config.read("config.ini")
+config = get_configuration()
 packages = get_packages(
     "scripts/", str(config["PACKAGES"]["ignore"]).split(sep=", "))
 

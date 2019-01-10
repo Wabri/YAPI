@@ -5,18 +5,9 @@ def runScript(path_to_file):
     Arguments:
     path_to_file -- the path to the script to run
     """
-    from configparser import ConfigParser
-    from configparser import ExtendedInterpolation
-    from os import getlogin
+    from language_pack_manager import get_language_pack
     import subprocess
-    config = ConfigParser(interpolation=ExtendedInterpolation())
-    config.read("config.ini")
-    language_config_file = str(config["COMMON"]["language_dir"]).replace(
-        "~", "/home/" + getlogin()) + "/" + config["COMMON"]["language"] \
-        + ".ini"
-    del config
-    language_config = ConfigParser()
-    language_config.read(language_config_file)
+    language_config = get_language_pack()
     try:
         with open(path_to_file, "r") as file_script:
             bashCommand = ""
