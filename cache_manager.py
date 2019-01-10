@@ -41,19 +41,23 @@ def get_package_info(info):
     return description[:-2], url
 
 
-def load_packages_from_directory(directory, *ignore_file):
+def load_packages_from_directory(directory, ignore_file=[]):
     """Load packages from scripts.
 
     Arguments:
     directory -- load cache of this directory
     *ignore_file -- string name of files to ignore
     """
+    from configparser import ConfigParser
+    from configparser import ExtendedInterpolation
     import glob
     import os
+    config = ConfigParser(interpolation=ExtendedInterpolation())
+    config.read("config.ini")
     packages_loaded = dict()
     os.chdir(directory)
     counter_packages = 1
-    for file in glob.glob("*.sh"):
+    for file in glob.glob("*" + config["COMMON"]["file_extension"]):
         package_name = file.split(".")[0]
         package_description = ""
         with open(file, "r") as open_file:
@@ -70,10 +74,10 @@ def load_packages_from_directory(directory, *ignore_file):
                 package_name,
                 package_description,
                 package_url,
-                str(directory + file)
+                str(directory + "/" + file)
             ]
             counter_packages += 1
-    os.chdir("..")
+    os.chdir(config["COMMON"]["yapi_dir"])
     return packages_loaded
 
 
@@ -91,7 +95,7 @@ def make_bin_from_packages(packages_list, file_name="packages.bin"):
             len(packages_list), file_name))
 
 
-def get_packages(directory, *test):
+def get_packages(directory, ignore_file=[]):
     """Get packages.
 
     Arguments:
@@ -99,12 +103,12 @@ def get_packages(directory, *test):
     *test -- specification of file using in test
     """
     import os
-    from_file = directory.strip("/") + ".bin"
+    from_file = directory.split(sep="/")[-1].strip("/") + ".bin"
     if os.path.exists(from_file):
         return load_packages_from_file(from_file)
     else:
         if os.path.exists(directory):
-            packages = load_packages_from_directory(directory, *test)
+            packages = load_packages_from_directory(directory, ignore_file)
             make_bin_from_packages(packages, from_file)
             return packages
         else:
@@ -120,9 +124,9 @@ def delete_cache(directory):
     """
     import os
     try:
-        cache_file = directory.strip("/") + ".bin"
-        os.chdir(directory)
-        os.remove(cache_file)
+        cache_file = directory.split(sep="/")[-1].strip("/")
+        os.chdir(directory.rstrip("/" + cache_file + "/"))
+        os.remove(cache_file + ".bin")
         return True
     except Exception:
         return False
