@@ -28,4 +28,4 @@ def runScript(path_to_file):
                 bashCommand, stderr=subprocess.STDOUT, shell=True)
             return "Package installed correctly"
     except (OSError, IOError, KeyError):
-        return language_config["SCRIPT-RUNNER"]["0_package_not_found_error"]
+        return language_config["SCRIPTRUNNER"]["0_package_not_found_error"]
