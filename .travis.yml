@@ -38,6 +38,7 @@ matrix:
       env:
         - PACKAGE=updateYapiScripts
 
+before_script: python install.py
 script: python yapi.py install $PACKAGE
 
 notifications:
