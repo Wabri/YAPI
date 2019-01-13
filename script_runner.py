@@ -7,7 +7,7 @@ def runScript(path_to_file):
     """
     from language_pack_manager import get_language_pack
     import subprocess
-    language_config = get_language_pack()
+    language_pack = get_language_pack()
     try:
         with open(path_to_file, "r") as file_script:
             bashCommand = ""
@@ -17,6 +17,9 @@ def runScript(path_to_file):
             bashCommand = bashCommand.replace("\n", " ; ")
             output = subprocess.call(
                 bashCommand, stderr=subprocess.STDOUT, shell=True)
-            return "Package installed correctly"
+            if output == 0:
+                return language_pack["SCRIPT-RUNNER"]["1_package_intalled"]
+            else:
+                return language_pack["SCRIPT-RUNNER"]["2_package_error"]
     except (OSError, IOError, KeyError):
-        return language_config["SCRIPT-RUNNER"]["0_package_not_found_error"]
+        return language_pack["SCRIPT-RUNNER"]["0_package_not_found_error"]
