@@ -1,10 +1,9 @@
 def get_language_pack():
     """Get language pack from configuration files."""
+    from config_extractor import get_configuration
     from configparser import ConfigParser
-    from configparser import ExtendedInterpolation
     from os import getlogin
-    config = ConfigParser(interpolation=ExtendedInterpolation())
-    config.read("config.ini")
+    config = get_configuration()
     language_config_file = str(config["COMMON"]["language_dir"]).replace(
         "~", "/home/" + getlogin()) + "/" + config["COMMON"]["language"] \
         + ".ini"
