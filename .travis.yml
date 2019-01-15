@@ -38,7 +38,7 @@ matrix:
       env:
         - PACKAGE=updateYapiScripts
 
-before_script: python install.py
+before_script: python install.py --lang=en --softlink=no
 script: python yapi.py install $PACKAGE
 
 notifications:
