@@ -1,19 +1,15 @@
 # YAPI - Yet Another Package Installer
 
 import cache_manager
-from configparser import ConfigParser
-from configparser import ExtendedInterpolation
+from config_extractor import get_configuration
 from language_pack_manager import get_language_pack
-from os import getlogin
 import script_runner  # Script Runner
 import sys  # Make System Calls
 import user_interface  # User Interface
 
-config = ConfigParser(interpolation=ExtendedInterpolation())
-config.read("config.ini")
+config = get_configuration()
 
-packages_path = config["PACKAGES"]["packages_path"].replace(
-    "~", "/home/" + getlogin())
+packages_path = config["PACKAGES"]["packages_path"]
 
 language_pack = get_language_pack()
 

@@ -10,7 +10,7 @@ def run(packages):
     import script_runner
     language_pack = get_language_pack()
     yes_answer = language_pack["ANSWER"]["yes_answer"]
-    no_answer = language_pack["ANSWER"]["yes_answer"]
+    no_answer = language_pack["ANSWER"]["no_answer"]
     right_answer = yes_answer + no_answer
     continue_to_ask = True
     while continue_to_ask:
