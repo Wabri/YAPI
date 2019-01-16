@@ -22,7 +22,11 @@ To install YAPI you can use wget:
 
     wget https://raw.githubusercontent.com/YetAnotherPackageInstaller/YAPI/install.sh -O - | sudo bash -
 
-This script clones the repository, delete all the useless files and create a softlink to yapi.sh to run yapi everywhere on the system.
+This script clones the repository, delete all the useless files and set up basic arguments of configuration.
+
+You can also clone the repository, edit the configuration by yourself (wiki page are not available yet) and run
+
+    ./install.sh
 
 ****
 
@@ -36,13 +40,22 @@ Or use the short method with the name of the package you want to install:
 
     ./yapi.sh install <package_name>
 
+To call yapi like this:
+
+    yapi <command> <package>
+
+You need to set in the [config.ini](config.ini) file the argument "want_soft_link =" with "yes" value and run again install.py with this command:
+
+    python3 install.py
+
+
 ****
 
 ## Usage without clone or download
 
 If you dont want to download YAPI but you need one of the packages, you can use the package manager to install a package with this command:
 
-    wget https://raw.githubusercontent.com/Wabri/YAPI/master/scripts/<package_name>.sh -O - | sudo bash -
+    wget https://raw.githubusercontent.com/YetAnotherPackageInstaller/YAPI/master/scripts/<package_name>.sh -O - | sudo bash -
 
 ****
 
@@ -55,7 +68,7 @@ There is a format for the install scripts:
 
 An example of this format is [test.sh](scripts/test.sh):
 
-    # Description of package - https://github.com/Wabri/YAPI
+    # Description of package - https://github.com/YetAnotherPackageInstaller/YAPI
     echo "Hello world!"
 
 If you want to add one script you **need** to mantain this standard. This is because the packages list on yapi.py is generated with this information, taken directly from the scripts.
