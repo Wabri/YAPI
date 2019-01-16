@@ -29,14 +29,6 @@ matrix:
       dist: trusty
       env:
         - PACKAGE=updateYapiScripts
-    - python: 3.2
-      dist: trusty
-      env:
-        - PACKAGE=test
-    - python: 3.2
-      dist: trusty
-      env:
-        - PACKAGE=updateYapiScripts
 
 before_script: python install.py --lang=en --softlink=no
 script: python yapi.py install $PACKAGE
