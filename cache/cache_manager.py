@@ -48,7 +48,7 @@ def load_packages_from_directory(directory, ignore_file=[]):
     directory -- load cache of this directory
     *ignore_file -- string name of files to ignore
     """
-    from config_extractor import get_configuration
+    from configuration.config_extractor import get_configuration
     import glob
     import os
     config = get_configuration()

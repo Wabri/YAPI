@@ -5,7 +5,7 @@ def runScript(path_to_file):
     Arguments:
     path_to_file -- the path to the script to run
     """
-    from language_pack_manager import get_language_pack
+    from languages.language_pack_manager import get_language_pack
     import subprocess
     language_pack = get_language_pack()
     try:
