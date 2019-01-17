@@ -1,5 +1,5 @@
-from "../cache/cache_manager" import get_packages
-from "../configuration/config_extractor" import get_configuration
+from cache.cache_manager import get_packages
+from configuration.config_extractor import get_configuration
 import glob
 from os import getlogin
 import pickle
