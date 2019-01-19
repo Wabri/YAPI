@@ -1,6 +1,6 @@
 def get_language_pack():
     """Get language pack from configuration files."""
-    from config_extractor import get_configuration
+    from configuration.config_extractor import get_configuration
     from configparser import ConfigParser
     from os import getlogin
     config = get_configuration()

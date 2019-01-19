@@ -3,7 +3,6 @@ def get_configuration():
     from configparser import ConfigParser
     from configparser import ExtendedInterpolation
     from os import getlogin
-
     config = ConfigParser(interpolation=ExtendedInterpolation())
     config.read("config.ini")
     configuration = dict()

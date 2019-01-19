@@ -1,11 +1,10 @@
 # YAPI - Yet Another Package Installer
 
-import cache_manager
-from config_extractor import get_configuration
-from language_pack_manager import get_language_pack
-import script_runner  # Script Runner
+from cache.cache_manager import get_packages, delete_cache
+from configuration.config_extractor import get_configuration
+from languages.language_pack_manager import get_language_pack
+from utility.script_runner import runScript  # Script Runner
 import sys  # Make System Calls
-import user_interface  # User Interface
 
 config = get_configuration()
 
@@ -39,20 +38,18 @@ if len(sys.argv) == 1:
     result = user_interface.main()
 elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
-        import console_interface
-        packages = cache_manager.get_packages(
+        from interfaces.console_interface import run
+        packages = get_packages(
             packages_path, str(config["PACKAGES"]["ignore"]).split(sep=", "))
-        console_interface.run(packages)
+        run(packages)
     elif (sys.argv[1] == "update"):
-        script_runner.runScript(
+        runScript(
             packages_path + "/updateYapiScripts" +
             config["COMMON"]["file_extension"])
     elif (sys.argv[1] == "cache"):
         try:
-            result = cache_manager.delete_cache(packages_path)
-            if not result:
-                print(language_pack["COMMON"]["0_cache_not_found"])
-            cache_manager.get_packages(
+            result = delete_cache(packages_path)
+            get_packages(
                 packages_path,
                 str(config["PACKAGES"]["ignore"]).split(sep=", "))
         except Exception:
@@ -65,6 +62,6 @@ elif len(sys.argv) == 3:
     if sys.argv[1] == "install":
         print(packages_path + "/" + sys.argv[2] +
               config["COMMON"]["file_extension"])
-        script_runner.runScript(
+        runScript(
             packages_path + "/" + sys.argv[2] +
             config["COMMON"]["file_extension"])

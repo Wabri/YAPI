@@ -1,5 +1,5 @@
-from cache_manager import get_packages
-from config_extractor import get_configuration
+from cache.cache_manager import get_packages
+from configuration.config_extractor import get_configuration
 import glob
 from os import getlogin
 import pickle
@@ -10,7 +10,7 @@ packages_path = get_packages(
     config["PACKAGES"]["packages_path"],
     str(config["PACKAGES"]["ignore"]).split(sep=", "))
 
-where_is_readme_packages = config["PACKAGES"]["packages_path"].replace(
+where_are_readme_packages = config["PACKAGES"]["packages_path"].replace(
     "~", "/home/" + getlogin()) + "/README.md"
 
 
@@ -42,4 +42,4 @@ def packages_update(packages, readme_path):
             print(line.strip("\n"), file=readme)
     del readme_path, readme_updated
 
-packages_update(packages_path, where_is_readme_packages)
+packages_update(packages_path, where_are_readme_packages)
