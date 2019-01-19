@@ -48,6 +48,32 @@ You need to set in the [config.ini](config.ini) file the argument "want_soft_lin
 
     python3 install.py
 
+****
+
+## Help
+
+<!--readme_update start help -->
+To install one of the packages: 
+
+	yapi install <package_to_install>
+
+To recreate the cache: 
+
+	yapi cache 
+
+To pull the newest yapi version from github: 
+
+	yapi update 
+
+To get information about yapi: 
+
+	yapi help 
+
+To run yapi with the terminal question installer: 
+
+	yapi console 
+
+<!--readme_update end help -->
 
 ****
 
