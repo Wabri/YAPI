@@ -6,12 +6,14 @@ import subprocess
 import sys
 
 config = ConfigParser(interpolation=ExtendedInterpolation())
-config.read("config.ini")
+real_config_path = os.path.realpath(
+    __file__).rstrip("install.py") + "config.ini"
+config.read(real_config_path)
 
-config.set("COMMON", "yapi_dir", str(
-    os.path.realpath(__file__)).rstrip("/install.py"))
+yapi_real_path = os.path.realpath(__file__).rstrip("/install.py")
+config.set("COMMON", "yapi_dir", str(yapi_real_path))
 
-with open("config.ini", "w") as configfile:
+with open(real_config_path, "w") as configfile:
     config.write(configfile)
 
 arguments = dict()
@@ -45,9 +47,9 @@ else:
     while (choose > counter or choose < 0):
         try:
             choose = int(input("Write the number: > "))
-            if 0 < choose < counter:
+            if 0 <= choose < counter:
                 break
-        except:
+        except Exception:
             choose = -1
         print("You need to choose one of this languages:")
         for language_number in language_pack:
@@ -58,7 +60,7 @@ else:
 
 config.set("COMMON", "language", lang)
 
-with open("config.ini", "w") as configfile:
+with open(real_config_path, "w") as configfile:
     config.write(configfile)
 
 want_soft_link = "no"
@@ -81,5 +83,5 @@ else:
 
 config.set("INSTALL", "want_soft_link", want_soft_link)
 
-with open("config.ini", "w") as configfile:
+with open(real_config_path, "w") as configfile:
     config.write(configfile)
