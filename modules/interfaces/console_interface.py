@@ -6,8 +6,8 @@ def run(packages):
     Arguments:
     packages -- list of packages to print
     """
-    from languages.language_pack_manager import get_language_pack
-    from utility.script_runner import runScript
+    from modules.languages.language_pack_manager import get_language_pack
+    from modules.utility.script_runner import runScript
     language_pack = get_language_pack()
     yes_answer = language_pack["ANSWER"]["yes_answer"]
     no_answer = language_pack["ANSWER"]["no_answer"]

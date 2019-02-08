@@ -1,5 +1,5 @@
-from cache.cache_manager import get_packages  # Cache Manager
-from utility.script_runner import runScript  # Script Runner
+from modules.cache.cache_manager import get_packages  # Cache Manager
+from modules.utility.script_runner import runScript  # Script Runner
 try:
     import toga  # GUI Library
     from toga.style.pack import *  # GUI Components

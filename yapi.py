@@ -1,9 +1,9 @@
 # YAPI - Yet Another Package Installer
 
-from cache.cache_manager import get_packages, delete_cache
-from configuration.config_extractor import get_configuration
-from languages.language_pack_manager import get_language_pack
-from utility.script_runner import runScript  # Script Runner
+from modules.cache.cache_manager import get_packages, delete_cache
+from modules.configuration.config_extractor import get_configuration
+from modules.languages.language_pack_manager import get_language_pack
+from modules.utility.script_runner import runScript  # Script Runner
 import sys  # Make System Calls
 
 config = get_configuration()
@@ -35,11 +35,11 @@ def argumentError(arg):
 
 
 if len(sys.argv) == 1:
-    from interfaces.user_interface import main
+    from modules.interfaces.user_interface import main
     result = main()
 elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
-        from interfaces.console_interface import run
+        from modules.interfaces.console_interface import run
         packages = get_packages(
             packages_path, str(config["PACKAGES"]["ignore"]).split(sep=", "))
         run(packages)
