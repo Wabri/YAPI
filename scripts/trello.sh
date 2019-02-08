@@ -3,4 +3,4 @@ mkdir trello
 cd trello
 wget -o trello.zip https://github.com/danielchatfield/trello-desktop/releases/download/v0.1.9/Trello-linux-0.1.9.zip
 unzip trello.zip
-ln -s $($pwd)/trello /usr/local/bin/trello
+sudo ln -s $(pwd)/Trello /usr/local/bin/trello
