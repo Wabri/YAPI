@@ -35,7 +35,8 @@ def argumentError(arg):
 
 
 if len(sys.argv) == 1:
-    result = user_interface.main()
+    from interfaces.user_interface import main
+    result = main()
 elif len(sys.argv) == 2:
     if (sys.argv[1] == "console"):
         from interfaces.console_interface import run
@@ -60,8 +61,6 @@ elif len(sys.argv) == 2:
         argumentError(sys.argv[1])
 elif len(sys.argv) == 3:
     if sys.argv[1] == "install":
-        print(packages_path + "/" + sys.argv[2] +
-              config["COMMON"]["file_extension"])
         runScript(
             packages_path + "/" + sys.argv[2] +
             config["COMMON"]["file_extension"])
