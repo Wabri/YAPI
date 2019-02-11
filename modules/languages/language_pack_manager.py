@@ -1,7 +1,7 @@
 def get_language_pack():
     """Get language pack from configuration files."""
     from configparser import ConfigParser
-    from configuration.config_extractor import get_configuration
+    from modules.configuration.config_extractor import get_configuration
     config = get_configuration()
     language_config_file = str(config["COMMON"]["language_dir"]) + "/" + \
         config["COMMON"]["language"] + ".ini"
