@@ -3,8 +3,9 @@ def get_language_pack():
     from configparser import ConfigParser
     from modules.configuration.config_extractor import get_configuration
     config = get_configuration()
-    language_config_file = str(config["COMMON"]["language_dir"]) + "/" + \
-        config["COMMON"]["language"] + ".ini"
+    language_dir = str(config["COMMON"]["language_dir"])
+    language_name = str(config["COMMON"]["language"])
+    language_config_file = language_dir + "/" + language_name + ".ini"
     language_config = ConfigParser()
     language_config.read(language_config_file)
     language_pack = dict()
