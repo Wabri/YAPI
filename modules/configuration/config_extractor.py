@@ -1,5 +1,5 @@
 def get_configuration():
-    """"Get configurations from configuration files."""
+    """Get configurations from configuration files."""
     from configparser import ConfigParser
     from configparser import ExtendedInterpolation
     from os import getlogin
