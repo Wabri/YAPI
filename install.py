@@ -6,8 +6,8 @@ import subprocess
 import sys
 
 config = ConfigParser(interpolation=ExtendedInterpolation())
-real_config_path = os.path.realpath(
-    __file__).rstrip("install.py") + "config.ini"
+real_path = os.path.realpath(__file__)
+real_config_path = real_path.rstrip("install.py") + "config/config.ini"
 config.read(real_config_path)
 
 yapi_real_path = os.path.realpath(__file__).rstrip("/install.py")
