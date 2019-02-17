@@ -6,7 +6,7 @@ def get_configuration():
     from os import path
     config = ConfigParser(interpolation=ExtendedInterpolation())
     config.read(path.realpath(__file__).rstrip(
-        "modules/configuration/config_extractor.py") + "/config.ini")
+        "modules/configuration/config_extractor.py") + "/config/config.ini")
     configuration = dict()
     for key in config.keys():
         configuration[key] = dict()
