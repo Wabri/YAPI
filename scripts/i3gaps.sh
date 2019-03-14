@@ -13,3 +13,5 @@ mkdir -p build && cd build/
 ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
 make
 sudo make install
+cd ../
+sudo rm -r i3-gaps
