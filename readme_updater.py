@@ -1,6 +1,6 @@
-from cache.cache_manager import get_packages
-from configuration.config_extractor import get_configuration
-from languages.language_pack_manager import get_language_pack
+from modules.cache.cache_manager import get_packages
+from modules.configuration.config_extractor import get_configuration
+from modules.languages.language_pack_manager import get_language_pack
 import glob
 import pickle
 
