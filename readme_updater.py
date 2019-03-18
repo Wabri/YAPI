@@ -58,7 +58,7 @@ def help_update(commands, help, readme_path):
                     for command in commands:
                         if not command == "description":
                             readme_updated.append(
-                                str("To {}: \r\n\r\n\tyapi {} {}\r\n\r\n"
+                                str("To {}: \n \n \tyapi {} {} \n \n"
                                     .format(
                                         str(help[command]).lower(),
                                         command,
