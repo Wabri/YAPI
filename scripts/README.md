@@ -25,7 +25,7 @@
 - Steam - Steam ultimate entertainment platform - https://store.steampowered.com/about
 - Pycharm - Pycharm Community edition - https://www.jetbrains.com/pycharm/
 - Dropbox - Dropbox cloud storage - https://www.dropbox.com/
-- Etcher - Ramme unofficial Instagram Desktop App - https://github.com/balena-io/etcher
+- Etcher - Etcher flash OS images to SD cards & USB drives, safely and easily - https://github.com/balena-io/etcher
 - I3gaps - i3 gaps is i3 with more features - https://github.com/Airblader/i3
 - Telegram - Telegram Fast and secure desktop app, perfectly synced with your mobile phoneDesktop - https://desktop.telegram.org/
 - Visualstudiocode - Visual Studio Code is a lightweight but powerful source code editor - https://code.visualstudio.com/
