@@ -53,25 +53,25 @@ You need to set in the [config.ini](config.ini) file the argument "want_soft_lin
 ## Help
 
 <!--readme_update start help -->
-To install one of the packages: 
+To run yapi with the terminal question installer:
 
-	yapi install <package_to_install>
+ 	yapi console
 
-To recreate the cache: 
+To pull the newest yapi version from github:
 
-	yapi cache 
+ 	yapi update
 
-To pull the newest yapi version from github: 
+To get information about yapi:
 
-	yapi update 
+ 	yapi help
 
-To get information about yapi: 
+To install one of the packages:
 
-	yapi help 
+ 	yapi install <package_to_install>
 
-To run yapi with the terminal question installer: 
+To recreate the cache:
 
-	yapi console 
+ 	yapi cache
 
 <!--readme_update end help -->
 
