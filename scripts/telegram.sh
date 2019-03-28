@@ -1,5 +1,9 @@
 # Telegram Fast and secure desktop app, perfectly synced with your mobile phoneDesktop - https://desktop.telegram.org/
-wget -O telegram.tar.xz https://updates.tdesktop.com/tlinux/tsetup.1.5.15.tar.xz
+curl --get https://api.github.com/repos/telegramdesktop/tdesktop/releases/latest | grep "browser_download" | grep "tar.xz" | tr -d '"'  > tout
+cut -c 29- tout > tlast
+rm tout
+wget -O telegram.tar.xz -i tlast
+rm tlast
 tar xf telegram.tar.xz
 sudo mv Telegram/Telegram /usr/local/bin/telegram
 rm -r ?elegram*
