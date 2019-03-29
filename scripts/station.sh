@@ -1,4 +1,4 @@
-#
+# Station is the first smart browser for busy people, a single place for all of your web applications - https://getstation.com/
 curl --get https://api.github.com/repos/getstation/desktop-app-releases/releases/latest | grep "browser_download" | grep "x86_64.AppImage" | tr -d '"'  > cout
 cut -c 29- cout > clink
 rm cout
