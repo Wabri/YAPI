@@ -23,7 +23,7 @@
 - Chrome - Google Chrome browser - https://www.google.it/chrome/
 - Tweet-tray - Tweet-tray tweet quickly from the desktop without any distractions - https://github.com/jonathontoon/tweet-tray
 - Oh-my-zsh - zsh + oh-my-zsh - https://ohmyz.sh/
-- Station -  - no url
+- Station - Station is the first smart browser for busy people, a single place for all of your web applications - https://getstation.com/
 - Virtualbox - VirtualBox is a general-purpose full virtualizer for x86 hardware - https://www.virtualbox.org
 - Springtoolsuite - Spring Tools 4 is the next generation of Spring tooling for your favorite coding environment - https://spring.io/tools
 - Steam - Steam ultimate entertainment platform - https://store.steampowered.com/about
