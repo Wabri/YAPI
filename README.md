@@ -72,7 +72,6 @@ To install one of the packages:
 To recreate the cache:
 
  	yapi cache
-
 <!--readme_update end help -->
 
 ****

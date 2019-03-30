@@ -1,0 +1,18 @@
+[DEFAULT]
+name = test
+description = Description of package
+url = https://github.com/YetAnotherPackageInstaller/YAPI
+class = ignore
+
+[Common]
+dekstop_entry = ignore
+installed = ignore
+cache = ignore
+
+[Script]
+download = echo "Download section test"
+before_install = echo "Before install section test"
+install = echo "Install section test"
+after_install = echo "After install section test"
+unistall = echo "Unistall section test"
+desktop_entry = echo "Desktop_entry section test"
