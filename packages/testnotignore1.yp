@@ -1,5 +1,5 @@
 [DEFAULT]
-name = testnotignore
+name = tpatataest
 description = Description of package
 url = https://github.com/YetAnotherPackageInstaller/YAPI
 class = notignored

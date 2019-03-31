@@ -2,7 +2,7 @@
 name = tpatataest
 description = Description of package
 url = https://github.com/YetAnotherPackageInstaller/YAPI
-class = isdasdadsgnore
+class = notignored2
 
 [Common]
 dekstop_entry = ignore

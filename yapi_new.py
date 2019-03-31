@@ -5,56 +5,70 @@ from modules.configuration.config_extractor import get_configuration
 import os
 
 config = get_configuration()
-print("-----------------------------------------------------------------------------")
+print("-"*79)
 print("Configuration")
 print("Language: {}".format(config["COMMON"]["language"]))
 print("Yapi directory: {}".format(config["COMMON"]["yapi_dir"]))
 print("Keep cache: {}".format(config["CACHE"]["keep_cache"]))
-print("-----------------------------------------------------------------------------")
+print("-"*79)
 while True:
     print("What do you want to do?")
-    print("0 - exit")
-    print("1 - list of packages")
-    print("2 - change configuration")
+    print("0 - Exit")
+    print("1 - Install packages")
+    print("2 - Change configuration")
     choose = (int)(input("    -> "))
-    print("-----------------------------------------------------------------------------")
+    print("-"*79)
     if choose == 0:
         print("Bye, Bye")
         exit()
     elif choose == 1:
-        # Start Method Get packages
         yapi_script = ConfigParser()
-        list_script = list()
         directory = (str)(config["PACKAGES"]["packages_path"])
-        os.chdir(directory)
+        # Start Method Get packages
         # this print need to be the init of output string
-        print("0 - return to main menu")
+        os.chdir(directory)
+        names_script = list()
+        categories = dict()
         for file in glob.glob("*"+".yp"):
             yapi_script.read(file)
-            if yapi_script["DEFAULT"]["class"] != "ignore":
-                list_script.append((str)(file))
-                # This will be the string return of the method
-                print("{} - {}".format(len(list_script),
-                                       yapi_script["DEFAULT"]["name"]))
+            class_script = yapi_script["DEFAULT"]["class"]
+            if class_script not in categories.keys():
+                categories[class_script] = list()
+            if  class_script != "ignore":
+                names_script.append((str)(file))
+                categories[class_script].append(len(names_script))
             else:
-                print("File {} ignore!".format(yapi_script["DEFAULT"]["name"]))
-        print(list_script)
-        # this method return 2 object: the list of the script and the string output
-        # return list_script, output
+                categories[class_script].append((str)(file))
+        print(names_script)
+        print(categories)
+        # this method return 2 object: the list of the names, the list of the categories,
+        # return names_script, categories
         # End method get packages
+        print("Choose one of this categories")
+        print("0 - Return to main")
+        num_category = list()
+        num_category.append("Return to main menu")
+        for category in categories.keys():
+            if category != "ignore":
+                num_category.append(category)
+                print("{} - {}".format(len(num_category)-1,category))
         choose = input("    -> ")
-        if (int)(choose) == 0:
-            print("Return to menu...")
-            print("-----------------------------------------------------------------------------")
-        else:
-            yapi_script.read(list_script[(int)(choose)-1])
-            output = subprocess.call(
-            yapi_script["Script"]["install"], shell=True, stderr=subprocess.STDOUT)
-            if output == 0:
-                print("ok")
+        if (int)(choose) <= len(num_category):
+            if (int)(choose) == 0:
+                print("Return to menu...")
             else:
-                print("not ok")
-            print("-----------------------------------------------------------------------------")
+                print("0 - Return to menu")
+                for num_name in categories[num_category[(int)(choose)]]:
+                    print("{} - {}".format(num_name,names_script[num_name-1]))
+                choose = input("    -> ")
+                yapi_script.read(names_script[(int)(choose)-1])
+                output = subprocess.call(
+                yapi_script["Script"]["install"], shell=True, stderr=subprocess.STDOUT)
+                if output == 0:
+                    print("ok")
+                else:
+                    print("not ok")
+        print("-"*79)
     elif choose == 2:
         print("not yet implemented")
-        print("-----------------------------------------------------------------------------")
+        print("-"*79)
