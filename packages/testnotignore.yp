@@ -1,12 +1,12 @@
 [DEFAULT]
-name = testnotignore
+name = test
 description = Description of package
 url = https://github.com/YetAnotherPackageInstaller/YAPI
-class = notignored
+class = category1
 
 [Common]
 dekstop_entry = ignore
-installed = ignore
+installed = False
 cache = ignore
 
 [Script]

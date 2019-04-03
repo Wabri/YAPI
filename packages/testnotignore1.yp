@@ -1,12 +1,12 @@
 [DEFAULT]
-name = tpatataest
+name = test1
 description = Description of package
 url = https://github.com/YetAnotherPackageInstaller/YAPI
-class = notignored
+class = category2
 
 [Common]
 dekstop_entry = ignore
-installed = ignore
+installed = False
 cache = ignore
 
 [Script]
