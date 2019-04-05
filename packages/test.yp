@@ -1,5 +1,5 @@
 [DEFAULT]
-name = test
+name = Test
 description = Description of package
 url = https://github.com/YetAnotherPackageInstaller/YAPI
 class = ignore
@@ -8,6 +8,7 @@ class = ignore
 dekstop_entry = ignore
 installed = ignore
 cache = ignore
+path =
 
 [Script]
 download = echo "Download section test"
