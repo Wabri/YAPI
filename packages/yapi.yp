@@ -15,7 +15,7 @@ soft_link = ~/.local/bin/${DEFAULT:name}
 download = git clone https://github.com/YetAnotherPackageInstaller/YAPI ${DEFAULT:name}
 before_install =
     ${download}
-    cd ${path}
+    cd ${Common:path}
 install =
     python3 -m pip install -r requirements.txt
     python3 install.py --lang=en
