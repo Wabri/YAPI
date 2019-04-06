@@ -6,3 +6,6 @@ __pycache__/
 
 # Ignore virtualenv
 env/
+
+# Ignore Visual Studio Code configurations
+.vscode/

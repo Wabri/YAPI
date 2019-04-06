@@ -1,0 +1,38 @@
+[DEFAULT]
+name = YAPI
+description = Yet Another Package Installer
+url = https://yetanotherpackageinstaller.github.io/
+class = installer
+
+[Common]
+dekstop_entry = ~/.local/share/applications/${name}.desktop
+installed = False
+cache = ignore
+path = ~/${DEFAULT:name}
+soft_link = ~/.local/bin/${DEFAULT:name}
+
+[Script]
+download = git clone https://github.com/YetAnotherPackageInstaller/YAPI ${DEFAULT:name}
+before_install =
+    ${download}
+    cd ${Common:path}
+install =
+    python3 -m pip install -r requirements.txt
+    python3 install.py --lang=en
+after_install =
+    sudo rm -r ${Common:path}/.git
+    sudo ln -s ${Common:path}/yapi.sh ${Common:soft_link}
+unistall =
+    sudo rm -r ${Common:path}
+    rm ${Common:desktop_entry}
+    sudo rm ${Common:soft_link}
+desktop_entry =
+    [Desktop Entry]
+    Type=Application
+    Name=YAPI
+    Comment=Yet Another Package Installer
+    Icon=${Common:path}/resources/yapi.png
+    Exec= x-terminal-emulator -e sh ${path}/yapi.sh
+    Terminal=true
+    Categories=package;installer
+    StartupWMClass=Yapi

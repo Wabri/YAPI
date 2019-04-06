@@ -37,8 +37,8 @@ matrix:
       dist: trusty
       env:
         - PACKAGE=updateYapiScripts
-before_script: python install.py --lang=en --softlink=no
-script: python yapi.py install $PACKAGE
+before_script: python3 install.py --lang=en --softlink=no
+script: python3 yapi.py install $PACKAGE
 
 notifications:
     slack: yapiworkspace:Rh3wlsbST5hm2JtSi3l3BpZO
