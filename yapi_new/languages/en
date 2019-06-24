@@ -1,0 +1,18 @@
+[DEFAULT]
+hello = Hello this is YAPI new version
+
+post_config_question_0 = What do you want to do?
+
+answer_question0_0 = Install/update packages
+user_answers_answer0 = install, update, install packages, update packages, diahane,ashld
+answer_user_question0_0 = Install or update packages
+
+answer_question0_1 = Change configuration
+user_answers_answer1 = configuration, config, change, change config, change configuration
+answer_user_question0_1 = Change config
+
+answer_question0_2 = Exit
+user_answers_answer2 = exit, quit
+answer_user_question0_2 = Bye
+
+answer_user_understand = Sorry I don't understand
