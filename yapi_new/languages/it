@@ -1,6 +1,6 @@
 [DEFAULT]
-name = English
-hello = Hello this is YAPI new version
+name = Italiano
+hello = Salve questa è la nuova versione di YAPI
 
 lang_missing = There is no language configuration
 lang_missing_question = Select the language
