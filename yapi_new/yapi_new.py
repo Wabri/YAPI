@@ -1,18 +1,43 @@
 from configparser import ConfigParser
 import glob
 
+_lenght_separator = 50
+_separator = '-'
+
+_get_default = lambda config, key: config['DEFAULT'][key]
+_print_separator = lambda : print(_separator * _lenght_separator)
+
 def _remove_whitespaces(string):
     while ', ' in string:
         string = string.replace(', ', ',')
     return string
 
+def _config_language(lang, lang_path):
+    lang_list = []
+    for file in glob.glob(lang_path +'*'):
+        lang_file = (str)(file)
+        lang_temp = ConfigParser()
+        lang_temp.read(lang_file)
+        lang_name = _get_default(lang_temp,'name')
+        lang_list.append([lang_file.replace(lang_path,'').lower(),lang_name])
+        del lang_temp, lang_file, lang_name
+    not_choose = True
+    while not_choose:
+        print(_get_default(lang,'conf1_title_language'))
+        for language in lang_list:
+            print(' - {} ({})'.format(language[1].capitalize(), language[0]))
+        choose = (str)(input('-----> ')).lower()
+        for language in lang_list:
+            if choose in language[0].lower() or choose in language[1].lower():
+                lang_temp = ConfigParser()
+                config.set('DEFAULT', 'language_use', language[0])
+                with open(config_path, 'w') as configfile:
+                    config.write(configfile)
+                not_choose = False
+                print(_get_default(lang,'conf2_title_language').format(choose))
+                lang.read(lang_path + language[0])
+
 if __name__ == '__main__':
-
-    lenght_separator = 50
-    separator = '-'
-
-    get_default = lambda config, key: config['DEFAULT'][key]
-    print_separator = lambda : print(separator * lenght_separator)
 
     lang_path = 'languages/'
     lang = ConfigParser()
@@ -22,66 +47,58 @@ if __name__ == '__main__':
     config = ConfigParser()
     config.read(config_path)
 
-    if get_default(config,'language_use') is '':
-        lang_list = []
-        print_separator()
-        print(get_default(lang,'lang_missing'))
-        print_separator()
-        for file in glob.glob(lang_path +'*'):
-            lang_file = (str)(file)
-            lang_temp = ConfigParser()
-            lang_temp.read(lang_file)
-            lang_name = get_default(lang_temp,'name')
-            lang_list.append([lang_file.replace(lang_path,'').lower(),lang_name])
-            del lang_temp, lang_file, lang_name
-        not_choose = True
-        while not_choose:
-            print('Select language')
-            for language in lang_list:
-                print(' - {} ({})'.format(language[1].capitalize(), language[0]))
-            choose = (str)(input('-----> ')).lower()
-            for language in lang_list:
-                if choose in language[0].lower() or choose in language[1].lower():
-                    lang_temp = ConfigParser()
-                    config.set('DEFAULT', 'language_use', language[0])
-                    with open(config_path, 'w') as configfile:
-                        config.write(configfile)
-                    not_choose = False
-                    print('You choose {} language'.format(choose))
-                    lang.read(lang_path + language[0])
+    if _get_default(config,'language_use') is '':
+        _print_separator()
+        print(_get_default(lang,'conf0_title_language'))
+        _print_separator()
+        _config_language(lang,lang_path)
     else:
-        lang.read(lang_path+get_default(config, 'language_use'))
+        lang.read(lang_path+_get_default(config, 'language_use'))
 
-    print_separator()
-    print(get_default(lang,'hello'))
-    print_separator()
+    _print_separator()
+    print(_get_default(lang,'hello'))
+    _print_separator()
 
     while True:
 
-        print(get_default(lang,'post_config_question_0'))
+        print(_get_default(lang,'main0_main'))
 
-        print(' - ' + get_default(lang,'answer_question0_0'))
-        install_update_request = _remove_whitespaces(get_default(lang,'user_answers_answer0')).split(',')
+        print(' - ' + _get_default(lang,'main0_title_install'))
+        install_update_request = _remove_whitespaces(_get_default(lang,'main0_answers_install')).split(',')
 
-        print(' - ' + get_default(lang, 'answer_question0_1'))
-        change_config_request = _remove_whitespaces(get_default(lang, 'user_answers_answer1')).split(',')
+        print(' - ' + _get_default(lang, 'main0_title_configuration'))
+        change_config_request = _remove_whitespaces(_get_default(lang, 'main0_answers_configuration')).split(',')
 
-        print(' - ' + get_default(lang, 'answer_question0_2'))
-        exit_request = _remove_whitespaces(get_default(lang, 'user_answers_answer2')).split(',')
+        print(' - ' + _get_default(lang, 'main0_title_exit'))
+        exit_request = _remove_whitespaces(_get_default(lang, 'main0_answers_exit')).split(',')
 
         choose = (str)(input('-----> ')).lower()
 
         if choose in exit_request:
-            print(get_default(lang, 'answer_user_question0_2'))
+            print(_get_default(lang, 'main1_title_exit'))
             exit()
         elif choose in install_update_request:
-            print(get_default(lang, 'answer_user_question0_0'))
+            print(_get_default(lang, 'main1_title_install'))
         elif choose in change_config_request:
-            print_separator()
-            print(get_default(lang, 'answer_user_question0_1'))
+            _print_separator()
+            print(_get_default(lang, 'main1_title_configuration'))
+            _print_separator()
+            while True:
+                for items in config.items():
+                    for item in items[1]:
+                        print(' - ' + item)
+                    print(' - ' + _get_default(lang, 'main0_title_exit'))
+                choose = (str)(input('-----> ')).lower()
+                if choose == 'language_use':
+                    _config_language(lang,lang_path)
+                    break
+                elif choose in exit_request:
+                    break
+                else:
+                    print(_get_default(lang, 'main1_title_undestand'))
         else:
-            print(get_default(lang, 'answer_user_understand'))
+            print(_get_default(lang, 'main1_title_undestand'))
 
-        print_separator()
+        _print_separator()
 
 
