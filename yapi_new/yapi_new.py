@@ -34,11 +34,12 @@ def _config_language(lang, lang_path):
                 with open(config_path, 'w') as configfile:
                     config.write(configfile)
                 not_choose = False
-                print(_get_default(lang,'conf2_title_language').format(choose))
+                print(_get_default(lang,'conf2_title_language').format(language[1].capitalize()))
                 lang.read(lang_path + language[0])
 
 if __name__ == '__main__':
 
+    packages_path = 'packages/'
     lang_path = 'languages/'
     lang = ConfigParser()
     lang.read(lang_path+'en')
@@ -78,7 +79,29 @@ if __name__ == '__main__':
             print(_get_default(lang, 'main1_title_exit'))
             exit()
         elif choose in install_update_request:
+            _print_separator()
             print(_get_default(lang, 'main1_title_install'))
+            _print_separator()
+            while True:
+                files_list = []
+                for file in glob.glob(packages_path + '*'):
+                    file_name = file.strip(packages_path).strip('.yp').strip('.sh')
+                    print(' - ' + file_name)
+                    files_list.append(file_name)
+                print(' - ' + _get_default(lang, 'main0_title_exit'))
+                choose = (str)(input('-----> ')).lower()
+                print(_get_default(lang,'main2_title_install'))
+                if choose in files_list:
+                    _print_separator()
+                    print(_get_default(lang,'main2_start_install').format(choose.capitalize()))
+                    print(_get_default(lang,'main2_end_install').format(choose.capitalize()))
+                    _print_separator()
+                elif choose in exit_request:
+                    break
+                else:
+                    _print_separator()
+                    print(_get_default(lang, 'main1_title_undestand'))
+                    _print_separator()
         elif choose in change_config_request:
             _print_separator()
             print(_get_default(lang, 'main1_title_configuration'))
@@ -95,7 +118,9 @@ if __name__ == '__main__':
                 elif choose in exit_request:
                     break
                 else:
+                    _print_separator()
                     print(_get_default(lang, 'main1_title_undestand'))
+                    _print_separator()
         else:
             print(_get_default(lang, 'main1_title_undestand'))
 

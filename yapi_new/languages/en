@@ -11,6 +11,9 @@ main0_main = What do you want to do?
 main0_title_install = Install/update packages
 main0_answers_install = install, update, install packages, update packages
 main1_title_install = Install or update packages
+main2_title_install = Select one package
+main2_start_install = Start installation of {}...
+main2_end_install = Installation of package {} done
 
 main0_title_configuration = Change configuration
 main0_answers_configuration = configuration, config, change, change config, change configuration, 1
