@@ -8,7 +8,12 @@ def _remove_whitespaces(string):
 
 if __name__ == '__main__':
 
+    lenght_separator = 50
+    separator = '-'
+
     get_default = lambda config, key: config['DEFAULT'][key]
+    print_separator = lambda : print(separator * lenght_separator)
+
     lang_path = 'languages/'
     lang = ConfigParser()
     lang.read(lang_path+'en')
@@ -19,9 +24,9 @@ if __name__ == '__main__':
 
     if get_default(config,'language_use') is '':
         lang_list = []
-        print('-'*50)
+        print_separator()
         print(get_default(lang,'lang_missing'))
-        print('-'*50)
+        print_separator()
         for file in glob.glob(lang_path +'*'):
             lang_file = (str)(file)
             lang_temp = ConfigParser()
@@ -47,9 +52,9 @@ if __name__ == '__main__':
     else:
         lang.read(lang_path+get_default(config, 'language_use'))
 
-    print('-'*50)
+    print_separator()
     print(get_default(lang,'hello'))
-    print('-'*50)
+    print_separator()
 
     while True:
 
@@ -72,10 +77,11 @@ if __name__ == '__main__':
         elif choose in install_update_request:
             print(get_default(lang, 'answer_user_question0_0'))
         elif choose in change_config_request:
+            print_separator()
             print(get_default(lang, 'answer_user_question0_1'))
         else:
             print(get_default(lang, 'answer_user_understand'))
 
-        print('-'*50)
+        print_separator()
 
 
