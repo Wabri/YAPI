@@ -5,7 +5,7 @@ _lenght_separator = 50
 _separator = '-'
 
 _get_default = lambda config, key: config['DEFAULT'][key]
-_print_separator = lambda : print(_separator * _lenght_separator)
+_print_separator = lambda separetor=_separator, lenght=_lenght_separator: print(separetor * lenght)
 
 def _remove_whitespaces(string):
     while ', ' in string:
@@ -49,16 +49,20 @@ if __name__ == '__main__':
     config.read(config_path)
 
     if _get_default(config,'language_use') is '':
-        _print_separator()
-        print(_get_default(lang,'conf0_title_language'))
-        _print_separator()
+        title_conf_language = _get_default(lang,'conf0_title_language')
+        _print_separator(lenght=len(title_conf_language))
+        print(title_conf_language)
+        _print_separator(lenght=len(title_conf_language))
+        del title_conf_language
         _config_language(lang,lang_path)
     else:
         lang.read(lang_path+_get_default(config, 'language_use'))
 
-    _print_separator()
-    print(_get_default(lang,'hello'))
-    _print_separator()
+    hello = _get_default(lang,'hello')
+    _print_separator(lenght=len(hello))
+    print(hello)
+    _print_separator(lenght=len(hello))
+    del hello
 
     while True:
 
@@ -79,9 +83,11 @@ if __name__ == '__main__':
             print(_get_default(lang, 'main1_title_exit'))
             exit()
         elif choose in install_update_request:
-            _print_separator()
-            print(_get_default(lang, 'main1_title_install'))
-            _print_separator()
+            title_install = _get_default(lang, 'main1_title_install')
+            _print_separator(lenght=len(title_install))
+            print(title_install)
+            _print_separator(lenght=len(title_install))
+            del title_install
             while True:
                 files_list = []
                 for file in glob.glob(packages_path + '*'):
@@ -92,20 +98,26 @@ if __name__ == '__main__':
                 choose = (str)(input('-----> ')).lower()
                 print(_get_default(lang,'main2_title_install'))
                 if choose in files_list:
-                    _print_separator()
-                    print(_get_default(lang,'main2_start_install').format(choose.capitalize()))
-                    print(_get_default(lang,'main2_end_install').format(choose.capitalize()))
-                    _print_separator()
+                    start_install =_get_default(lang,'main2_start_install').format(choose.capitalize())
+                    end_install = _get_default(lang,'main2_end_install').format(choose.capitalize())
+                    max_string = max(len(start_install),len(end_install))
+                    _print_separator(lenght=max_string)
+                    print(start_install)
+                    print(end_install)
+                    _print_separator(lenght=max_string)
+                    del start_install, end_install, max_string
                 elif choose in exit_request:
                     break
                 else:
-                    _print_separator()
-                    print(_get_default(lang, 'main1_title_undestand'))
-                    _print_separator()
+                    title_undestand = _get_default(lang, 'main1_title_undestand')
+                    _print_separator(lenght=len(title_undestand))
+                    print(title_undestand)
+                    _print_separator(lenght=len(title_undestand))
         elif choose in change_config_request:
-            _print_separator()
-            print(_get_default(lang, 'main1_title_configuration'))
-            _print_separator()
+            title_configuration = _get_default(lang, 'main1_title_configuration')
+            _print_separator(lenght=len(title_configuration))
+            print(title_configuration)
+            _print_separator(lenght=len(title_configuration))
             while True:
                 for items in config.items():
                     for item in items[1]:
@@ -118,9 +130,11 @@ if __name__ == '__main__':
                 elif choose in exit_request:
                     break
                 else:
-                    _print_separator()
-                    print(_get_default(lang, 'main1_title_undestand'))
-                    _print_separator()
+                    title_understand = _get_default(lang, 'main1_title_undestand')
+                    _print_separator(lenght=len(title_understand))
+                    print(title_understand)
+                    _print_separator(lenght=len(title_understand))
+                    del title_understand
         else:
             print(_get_default(lang, 'main1_title_undestand'))
 
