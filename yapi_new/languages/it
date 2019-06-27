@@ -2,21 +2,22 @@
 name = Italiano
 hello = Salve questa è la nuova versione di YAPI
 
-lang_missing = There is no language configuration
-lang_missing_question = Select the language
+lang_missing = Non c'è nessuna configurazione della lingua
+lang_missing_question = Seleziona la lingua
 
-post_config_question_0 = What do you want to do?
+post_config_question_0 = Cosa vuoi fare?
 
-answer_question0_0 = Install/update packages
-user_answers_answer0 = install,    update, install packages, update packages, diahane,ashld
-answer_user_question0_0 = Install or update packages
+answer_question0_0 = Installa/aggiorna pacchetti
+user_answers_answer0 = installa, aggiorna, installa pacchetti, aggiorna pacchetti, 0
+answer_user_question0_0 = Installa o aggiorna pacchetti
 
-answer_question0_1 = Change configuration
-user_answers_answer1 = configuration, config, change, change config, change configuration
-answer_user_question0_1 = Change config
+answer_question0_1 = Cambia configurazione
+user_answers_answer1 = configurazione, config, cambia, cambia config, cambia configurazione, 1
+answer_user_question0_1 = Cambia config
 
-answer_question0_2 = Exit
-user_answers_answer2 = exit, quit
-answer_user_question0_2 = Bye
+answer_question0_2 = Esci
+user_answers_answer2 = esci, esc, q
+answer_user_question0_2 = Ciao
 
-answer_user_understand = Sorry I don't understand
+answer_user_understand = Mi dispiace non capisco
+

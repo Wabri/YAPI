@@ -12,11 +12,12 @@ user_answers_answer0 = install,    update, install packages, update packages, di
 answer_user_question0_0 = Install or update packages
 
 answer_question0_1 = Change configuration
-user_answers_answer1 = configuration, config, change, change config, change configuration
+user_answers_answer1 = configuration, config, change, change config, change configuration, 1
 answer_user_question0_1 = Change config
 
 answer_question0_2 = Exit
-user_answers_answer2 = exit, quit
+user_answers_answer2 = exit, quit, q
 answer_user_question0_2 = Bye
 
 answer_user_understand = Sorry I don't understand
+
