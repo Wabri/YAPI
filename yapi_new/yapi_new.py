@@ -17,17 +17,24 @@ def _remove_whitespaces(string):
 
 def _install_procedure(lang, packages_path=_packages_path):
     while True:
-        files_list = []
 
+        title_install = _get_default(lang,'main2_title_install')
+        _print_separator(lenght=len(title_install))
+        print(title_install)
+        _print_separator(lenght=len(title_install))
+        del title_install
+
+        files_list = []
         for file in glob.glob(packages_path + '*'):
-            file_name = file.strip(packages_path).strip('.yp').strip('.sh')
+            packages_temp = ConfigParser()
+            packages_temp.read(file)
+            file_name = _get_default(packages_temp, 'name')
             print(' - ' + file_name)
             files_list.append(file_name)
+            del packages_temp
         print(' - ' + _get_default(lang, 'main0_title_exit'))
 
         choose = (str)(input('-----> ')).lower()
-
-        print(_get_default(lang,'main2_title_install'))
 
         if choose in files_list:
             start_install =_get_default(lang,'main3_start_install').format(choose.capitalize())
@@ -146,7 +153,39 @@ if __name__ == '__main__':
                 elif choose in list_install:
                     _install_procedure(lang)
                 elif choose in category_install:
-                    print('Which category you want to choose?')
+
+                    title_category = _get_default(lang, 'main2_title_category')
+                    _print_separator(lenght=len(title_category))
+                    print(title_category)
+                    _print_separator(lenght=len(title_category))
+                    del title_category
+
+                    info_packages = {}
+
+                    for file in glob.glob(_packages_path + '*'):
+                        packages_temp = ConfigParser()
+                        packages_temp.read(file)
+                        for category in _remove_whitespaces(_get_default(packages_temp, 'class')).split(','):
+                            if category not in info_packages.keys():
+                                info_packages[category] = []
+                            info_packages[category].append(_get_default(packages_temp, 'name'))
+                        del packages_temp
+
+                    print('Choose one of this category')
+
+                    for classes in info_packages:
+                        print(' - {} ({}) '.format(classes, len(info_packages[classes])))
+                    print(' - ' + _get_default(lang, 'main0_title_exit'))
+                    exit_request = _remove_whitespaces(_get_default(lang, 'main0_answers_exit')).split(',')
+
+                    choose = (str)(input('-----> ')).lower()
+                    if choose in exit_request:
+                        break
+                    elif choose in info_packages:
+                        print('You choose the category {}'.format(choose))
+                    else:
+                        print(_get_default(lang, 'main1_title_undestand'))
+
                 else:
                     print(_get_default(lang, 'main1_title_undestand'))
 

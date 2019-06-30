@@ -1,0 +1,3 @@
+[DEFAULT]
+name = test2
+class = test, yapi

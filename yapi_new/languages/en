@@ -20,6 +20,8 @@ main1_list_install = List
 main1_list_answers_install = list
 
 main2_title_install = Select one package
+main2_title_category = Choose a category
+
 main3_start_install = Start installation of {}...
 main3_end_install = Installation of package {} done
 
