@@ -15,6 +15,43 @@ def _remove_whitespaces(string):
         string = string.replace(', ', ',')
     return string
 
+def _category_chosing(lang, packages_path=_packages_path):
+    title_category = _get_default(lang, 'main2_title_category')
+    _print_separator(lenght=len(title_category))
+    print(title_category)
+    _print_separator(lenght=len(title_category))
+    del title_category
+
+    info_packages = {}
+
+    for file in glob.glob(packages_path + '*'):
+        packages_temp = ConfigParser()
+        packages_temp.read(file)
+        for category in _remove_whitespaces(_get_default(packages_temp, 'class')).split(','):
+            if category not in info_packages.keys():
+                info_packages[category] = []
+            info_packages[category].append(_get_default(packages_temp, 'name'))
+        del packages_temp
+
+    print('Choose one of this category')
+
+    for classes in info_packages:
+        print(' - {} ({}) '.format(classes, len(info_packages[classes])))
+    print(' - ' + _get_default(lang, 'title_back'))
+    back_request = _remove_whitespaces(_get_default(lang, 'title_back_answers')).split(',')
+    print(' - ' + _get_default(lang, 'title_exit'))
+    exit_request = _remove_whitespaces(_get_default(lang, 'title_exit_answers')).split(',')
+
+    choose = (str)(input('-----> ')).lower()
+    if choose in back_request:
+        return 1
+    if choose in exit_request:
+        return 2
+    elif choose in info_packages:
+        print('You choose the category {}'.format(choose))
+    else:
+        print(_get_default(lang, 'main1_title_undestand'))
+
 def _install_procedure(lang, packages_path=_packages_path):
     while True:
 
@@ -165,44 +202,13 @@ if __name__ == '__main__':
                 elif choose in list_install:
                     _install_procedure(lang)
                 elif choose in category_install:
-
-                    title_category = _get_default(lang, 'main2_title_category')
-                    _print_separator(lenght=len(title_category))
-                    print(title_category)
-                    _print_separator(lenght=len(title_category))
-                    del title_category
-
-                    info_packages = {}
-
-                    for file in glob.glob(_packages_path + '*'):
-                        packages_temp = ConfigParser()
-                        packages_temp.read(file)
-                        for category in _remove_whitespaces(_get_default(packages_temp, 'class')).split(','):
-                            if category not in info_packages.keys():
-                                info_packages[category] = []
-                            info_packages[category].append(_get_default(packages_temp, 'name'))
-                        del packages_temp
-
-                    print('Choose one of this category')
-
-                    for classes in info_packages:
-                        print(' - {} ({}) '.format(classes, len(info_packages[classes])))
-                    print(' - ' + _get_default(lang, 'title_back'))
-                    back_request = _remove_whitespaces(_get_default(lang, 'title_back_answers')).split(',')
-                    print(' - ' + _get_default(lang, 'title_exit'))
-                    exit_request = _remove_whitespaces(_get_default(lang, 'title_exit_answers')).split(',')
-
-                    choose = (str)(input('-----> ')).lower()
-                    if choose in back_request:
+                    category_result = _category_chosing(lang, _packages_path)
+                    if  category_result == 1:
                         break
-                    if choose in exit_request:
+                    elif category_result == 2:
                         print(_get_default(lang, 'bye'))
                         exit()
-                    elif choose in info_packages:
-                        print('You choose the category {}'.format(choose))
-                    else:
-                        print(_get_default(lang, 'main1_title_undestand'))
-
+                    del category_result
                 else:
                     print(_get_default(lang, 'main1_title_undestand'))
 
