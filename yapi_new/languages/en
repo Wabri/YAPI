@@ -1,6 +1,7 @@
 [DEFAULT]
 name = English
 hello = Hello this is YAPI new version
+bye = Bye
 
 conf0_title_language = There is no language configuration
 
@@ -30,10 +31,11 @@ main0_answers_configuration = configuration, config, change, change config, chan
 
 main1_title_configuration = What configuration do you want to change?
 
-main0_title_exit = Exit
-main0_answers_exit = exit, quit, q
+title_exit = Exit
+title_exit_answers = exit, quit, q
+title_back = Back
+title_back_answers = back
 
-main1_title_exit = Bye
 
 main1_title_undestand = Sorry I don't understand
 
